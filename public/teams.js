@@ -48,5 +48,20 @@ window.GG = (() => {
     return new Date(y, m - 1, day).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
   };
 
-  return { TEAMS, findTeam, teamStyle, trackingUrl, esc, fmtDate };
+  // Simple side-profile football helmet in team colors for each hit card.
+  function helmetSvg(team) {
+    const t = teamStyle(team);
+    return `<svg viewBox="0 0 200 140" aria-hidden="true"><g>
+      <path d="M28 92 C22 50 52 18 98 16 C140 14 168 40 170 76 L170 96 L128 96 L120 112 L58 114 C40 114 31 106 28 92 Z" fill="${t.c1}"/>
+      <path d="M44 40 C62 22 96 14 128 20" stroke="${t.c2}" stroke-width="9" fill="none" stroke-linecap="round"/>
+      <path d="M28 92 C22 50 52 18 98 16 C140 14 168 40 170 76 L170 96 L128 96 L120 112 L58 114 C40 114 31 106 28 92 Z" fill="url(#shine)" opacity=".5"/>
+      <circle cx="92" cy="78" r="7" fill="#000" opacity=".35"/>
+      <path d="M150 70 H192 M150 88 H192 M190 64 V104 M170 104 H192 M150 70 C142 80 142 92 150 104" stroke="#c9c9cf" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g><defs><linearGradient id="shine" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs></svg>`;
+  }
+
+  // "JALEN HURTS (Authentic)" -> { player, type }
+  function splitHelmet(h) { const m = String(h || "").match(/^(.*?)\s*\((Authentic|Speed Flex)\)\s*$/i); return m ? { player: m[1], type: m[2] } : { player: h || "", type: "" }; }
+
+  return { TEAMS, findTeam, teamStyle, trackingUrl, esc, fmtDate, helmetSvg, splitHelmet };
 })();

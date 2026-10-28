@@ -325,7 +325,9 @@ $("bDate").onchange = () => { $("bNo").value = nextBreakNo($("bDate").value); };
 function setType(v) { type = v; $("fType").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.v === v)); }
 $("fType").querySelectorAll("button").forEach((b) => b.onclick = () => setType(b.dataset.v));
 
-function clearHitFields() { for (const id of ["fUser", "fTeam", "fPlayer", "fTrack"]) $(id).value = ""; }
+function clearHitFields() {
+  for (const id of ["fUser", "fTeam", "fPlayer", "fTrack"]) $(id).value = "";
+}
 function exitEdit() {
   editingId = null; $("formTitle").textContent = "Add hit to break"; $("saveBtn").textContent = "Add hit";
   clearHitFields(); $("fStatus").value = "In Fulfillment"; setDefaults(); renderHits();
@@ -346,9 +348,11 @@ $("hitForm").onsubmit = async (e) => {
   if (hit.tracking && hit.status === "In Fulfillment") hit.status = "Shipped";
   $("saveBtn").disabled = true;
   try {
-    if (editingId) { apply(await call("update", { updates: [{ id: editingId, ...hit }] })); toast("Hit saved"); exitEdit(); }
-    else {
-      apply(await call("add", { rows: [hit] }));
+    if (editingId) {
+      const id = editingId;
+      apply(await call("update", { updates: [{ id, ...hit }] })); toast("Hit saved"); exitEdit();
+    } else {
+      const r = await call("add", { rows: [hit] }); apply(r);
       $("lastAdd").textContent = `Added ${(t ? t.abbr : team).toUpperCase()} to @${username}, break ${hit.breakNo}`;
       clearHitFields(); $("fUser").focus(); loadAccounts(true);
     }

@@ -4,96 +4,107 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Helmet Hits | Gridiron Grail</title>
+<meta name="description" content="Every helmet pulled in Gridiron Grail breaks, and where it is now.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800&family=Saira:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#140d27; --panel:#1d1537; --panel2:#251b45; --purple:#2d1b69; --gold:#c9b800;
-  --text:#f3effc; --muted:#a99fc6; --line:#33285a; --ok:#59d38c; --hold:#b9a4ff; --err:#ff7b7b;
+  --ink:#130c25; --ink2:#0d0819; --panel:#1c1436; --panel2:#251b46; --purple:#2d1b69; --gold:#c9b800; --gold2:#e8d51a;
+  --text:#f3effc; --muted:#a39bbf; --line:#30265a; --ok:#59d38c; --hold:#b9a4ff; --err:#ff7b7b;
   --cond:"Saira Condensed","Arial Narrow",Arial,sans-serif; --body:"Saira",system-ui,-apple-system,Segoe UI,sans-serif;
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--ink);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.5}
-body{min-height:100vh;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);
-  background:radial-gradient(1200px 500px at 85% -10%, rgba(45,27,105,.75), transparent 60%),
-    repeating-linear-gradient(90deg, transparent 0 79px, rgba(255,255,255,.025) 79px 80px), var(--ink);}
-button,input{font:inherit;color:inherit}
+html,body{margin:0;background:var(--ink);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.45}
+body{min-height:100vh;padding-bottom:env(safe-area-inset-bottom,0)}
+button,input,select{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
 .hidden{display:none!important}
+.wrap{max-width:1320px;margin:0 auto;padding:0 20px}
 
-/* bar */
-.bar{display:flex;align-items:center;gap:10px;padding:18px 0}
-.mark{font-family:var(--cond);font-weight:800;font-size:22px;display:flex;align-items:center;gap:10px;margin-right:auto;background:none;border:0;padding:0;cursor:default;white-space:nowrap;user-select:none}
-.mark i{width:12px;height:22px;background:var(--gold);display:inline-block;transform:skewX(-14deg)}
-.ghost{color:var(--text);background:none;border:1px solid var(--line);border-radius:8px;padding:7px 13px;cursor:pointer;white-space:nowrap;text-decoration:none;font-size:15px}
-.ghost:hover{border-color:var(--gold)}
-.cta{background:var(--gold);color:#1a1300;border:0;border-radius:8px;padding:8px 15px;font-family:var(--cond);font-weight:800;font-size:18px;cursor:pointer;white-space:nowrap}
-.who{color:var(--muted);font-size:14px}
-
-/* hero + search */
-.hero{padding:36px 0 8px}
-.headline{font-family:var(--cond);font-weight:800;font-size:clamp(52px,8.5vw,104px);line-height:.86;margin:0}
-.headline span{display:block;color:transparent;-webkit-text-stroke:2px var(--gold)}
-.lede{color:var(--muted);max-width:52ch;margin:18px 0 0;font-size:17px}
-.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:26px 0 6px}
-.search{display:block;position:relative;flex:1 1 280px;max-width:420px}
-.search input{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px 12px 30px;font-size:16px}
+/* sticky header with search */
+header{position:sticky;top:0;z-index:20;background:rgba(19,12,37,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:rgba(19,12,37,.88);backdrop-filter:blur(10px)}
+.bar{display:flex;align-items:center;gap:14px;height:64px}
+.mark{font-family:var(--cond);font-weight:800;font-size:21px;display:flex;align-items:center;gap:9px;white-space:nowrap;user-select:none}
+.mark i{width:11px;height:21px;background:var(--gold);transform:skewX(-14deg)}
+.search{position:relative;flex:1;max-width:460px;margin-left:auto}
+.search input{width:100%;height:40px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:0 16px 0 34px;font-size:15px}
 .search input:focus{outline:none;border-color:var(--gold)}
-.search::before{content:"@";position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted)}
-.chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 14px;cursor:pointer;font-weight:500;font-size:14px;display:inline-flex;gap:8px;align-items:center}
-.chip b{font-family:var(--cond);font-size:17px;font-weight:700}
+.search::before{content:"@";position:absolute;left:15px;top:50%;transform:translateY(-52%);color:var(--muted)}
+.ghost{color:var(--text);background:none;border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;white-space:nowrap;text-decoration:none;font-size:14px}
+.ghost:hover{border-color:var(--gold)}
+.cta{background:var(--gold);color:#1a1300;border:0;border-radius:999px;padding:9px 18px;font-family:var(--cond);font-weight:800;font-size:17px;letter-spacing:.02em;cursor:pointer;white-space:nowrap}
+.cta:hover{background:var(--gold2)}
+.who{color:var(--muted);font-size:14px;white-space:nowrap}
+
+/* intro row: title + scoreboard side by side */
+.intro{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end;padding:30px 0 22px}
+.intro h1{font-family:var(--cond);font-weight:800;font-size:clamp(38px,5vw,60px);line-height:.9;margin:0}
+.intro h1 span{color:transparent;-webkit-text-stroke:1.5px var(--gold)}
+.intro p{color:var(--muted);margin:10px 0 0;max-width:46ch}
+.score{display:flex;background:var(--ink2);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02)}
+.score div{padding:12px 20px;border-left:1px solid var(--line);text-align:left;min-width:108px}
+.score div:first-child{border-left:0}
+.score b{display:block;font-family:var(--cond);font-weight:700;font-size:34px;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+.score small{color:var(--muted);font-size:12px}
+.score .last b{font-size:20px;color:var(--text);padding-top:8px}
+
+/* filters */
+.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:4px 0 6px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 13px;cursor:pointer;font-weight:500;font-size:14px;display:inline-flex;gap:7px;align-items:center}
+.chip b{font-family:var(--cond);font-size:16px;font-weight:700}
 .chip[aria-pressed="true"]{background:var(--text);color:var(--ink);border-color:var(--text)}
+.chip .d{width:7px;height:7px;border-radius:50%}
+.sel{height:34px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:0 12px;margin-left:auto}
 
-/* sections */
-.mine{margin-top:34px;border:1px solid var(--gold);border-radius:18px;padding:20px;background:linear-gradient(180deg,rgba(201,184,0,.07),transparent 70%)}
-.mine h2{font-family:var(--cond);font-weight:800;font-size:32px;margin:0;line-height:1}
-.mine p{color:var(--muted);margin:6px 0 16px}
-.day{margin-top:34px}
-.day h2{font-family:var(--cond);font-weight:700;font-size:22px;margin:0 0 4px;display:flex;gap:12px;align-items:center}
-.day h2::after{content:"";flex:1;height:1px;background:var(--line)}
-.brk{font-size:14px;color:var(--muted);margin:14px 0 8px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-.grid.big{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+/* your helmets */
+.mine{margin:22px 0 4px;border:1px solid rgba(201,184,0,.55);border-radius:16px;padding:18px;background:linear-gradient(180deg,rgba(201,184,0,.08),rgba(201,184,0,0) 80%)}
+.mine-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.mine h2{font-family:var(--cond);font-weight:800;font-size:28px;margin:0;line-height:1}
+.mine p{color:var(--muted);margin:0;font-size:14px}
 
-/* locker plate */
-.hit{display:grid;grid-template-columns:62px 1fr;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-height:92px}
-.hit.yours{border-color:var(--gold)}
-.big .hit{grid-template-columns:104px 1fr;min-height:150px;border-radius:14px}
-.plate{background:var(--c1);position:relative;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;overflow:hidden}
-.plate::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.14),transparent 45%)}
-.plate .ab{font-family:var(--cond);font-weight:800;font-size:28px;line-height:1;color:var(--c2);writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.04em;position:relative}
-.big .plate .ab{font-size:46px}
-.plate .stripe{position:absolute;top:0;bottom:0;right:8px;width:4px;background:var(--c2);opacity:.9}
-.big .plate .stripe{right:14px;width:6px}
-.body{padding:10px 12px;display:flex;flex-direction:column;gap:3px;min-width:0}
-.big .body{padding:14px 16px;gap:6px}
-.team{font-family:var(--cond);font-weight:700;font-size:19px;line-height:1.05}
-.big .team{font-size:23px}
-.helm{font-size:14px;opacity:.88}
-.buyer{font-size:14px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.buyer mark{background:rgba(201,184,0,.25);color:var(--text);border-radius:3px}
-.status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;width:fit-content;margin-top:auto}
-.status::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
-.s-fulfill{color:var(--gold);background:rgba(201,184,0,.12)}
-.s-ship{color:var(--ok);background:rgba(89,211,140,.12)}
-.s-hold{color:var(--hold);background:rgba(185,164,255,.14)}
-.track{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:4px}
-.track code{flex-basis:100%;font-family:var(--body);font-size:13px;letter-spacing:.02em;background:var(--ink);border:1px solid var(--line);padding:3px 8px;border-radius:6px;overflow-wrap:anywhere}
-.track a,.track button{font-size:13px;font-weight:600;color:var(--ink);background:var(--gold);border:0;border-radius:6px;padding:4px 10px;text-decoration:none;cursor:pointer}
+/* day sections */
+.day{margin-top:26px}
+.day-h{position:sticky;top:64px;z-index:5;display:flex;align-items:baseline;gap:12px;padding:10px 0;background:linear-gradient(var(--ink) 75%,rgba(19,12,37,0))}
+.day-h h2{font-family:var(--cond);font-weight:700;font-size:24px;margin:0;line-height:1}
+.day-h span{color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:12px}
+
+/* helmet card */
+.card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;text-align:left;padding:0;cursor:default}
+.card.yours{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.media{position:relative;aspect-ratio:4/3;background:radial-gradient(120% 90% at 30% 20%,color-mix(in srgb,var(--c1) 70%,#fff 8%),var(--c1) 55%,color-mix(in srgb,var(--c1) 70%,#000) 100%);overflow:hidden}
+.media svg{position:absolute;left:12%;right:12%;bottom:6%;width:76%;height:auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35))}
+.media .wm{position:absolute;right:-6px;top:-10px;font-family:var(--cond);font-weight:800;font-size:72px;line-height:1;color:var(--c2);opacity:.22;letter-spacing:-.02em}
+.brk{position:absolute;left:8px;top:8px;background:rgba(10,6,22,.72);color:var(--text);font-family:var(--cond);font-weight:700;font-size:13px;padding:2px 8px;border-radius:6px;backdrop-filter:blur(4px)}
+.info{padding:10px 12px 12px;display:flex;flex-direction:column;gap:2px;flex:1}
+.tm{display:flex;align-items:center;gap:6px;font-family:var(--cond);font-weight:600;font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.02em}
+.tm i{width:8px;height:8px;border-radius:2px;background:var(--c1);box-shadow:inset -3px 0 0 var(--c2)}
+.pl{font-family:var(--cond);font-weight:700;font-size:19px;line-height:1.1;text-transform:uppercase}
+.meta{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:6px}
+.buyer{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.buyer mark{background:rgba(201,184,0,.3);color:var(--text);border-radius:3px}
+.type{font-size:11px;font-weight:600;color:var(--text);background:var(--panel2);border-radius:4px;padding:1px 6px;white-space:nowrap}
+.status{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;white-space:nowrap}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.s-fulfill{color:var(--gold)}.s-ship{color:var(--ok)}.s-hold{color:var(--hold)}
+.track{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.track code{flex-basis:100%;font-family:var(--body);font-size:12px;background:var(--ink);border:1px solid var(--line);padding:3px 7px;border-radius:6px;overflow-wrap:anywhere}
+.track a,.track button{font-size:12px;font-weight:600;color:#1a1300;background:var(--gold);border:0;border-radius:6px;padding:4px 9px;text-decoration:none;cursor:pointer}
 .track button{background:var(--panel2);color:var(--text)}
-.wait{font-size:13px;color:var(--muted)}
+.wait{font-size:12px;color:var(--muted);margin-top:6px}
+
 .empty{border:1px dashed var(--line);border-radius:14px;padding:30px;text-align:center;color:var(--muted);margin-top:24px}
 .empty strong{display:block;color:var(--text);font-family:var(--cond);font-size:24px;margin-bottom:4px}
-.more{display:block;margin:28px auto 0}
-.foot{color:var(--muted);font-size:13px;padding:40px 0 30px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.more{display:block;margin:26px auto 0}
+.foot{color:var(--muted);font-size:13px;padding:36px 0 28px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 
 /* sign-in sheet */
-dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:16px;padding:26px;width:min(420px,calc(100vw - 32px))}
-dialog::backdrop{background:rgba(10,6,22,.7)}
-dialog h3{font-family:var(--cond);font-weight:800;font-size:30px;margin:0 0 4px;line-height:1}
-dialog .sub{color:var(--muted);font-size:14px;margin:0 0 18px}
+#sheet{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:16px;padding:26px;width:min(420px,calc(100vw - 32px))}
+#sheet::backdrop{background:rgba(10,6,22,.7)}
+#sheet h3{font-family:var(--cond);font-weight:800;font-size:30px;margin:0 0 4px;line-height:1}
+#sheet .sub{color:var(--muted);font-size:14px;margin:0 0 18px}
 .tabs{display:flex;gap:4px;background:var(--ink);padding:4px;border-radius:10px;margin-bottom:18px}
 .tabs button{flex:1;border:0;background:none;padding:9px;border-radius:7px;cursor:pointer;color:var(--muted);font-weight:600}
 .tabs button[aria-selected="true"]{background:var(--purple);color:var(--text)}
@@ -107,35 +118,52 @@ label{display:block;font-size:14px;color:var(--muted);margin:0 0 6px}
 .go:disabled{opacity:.6;cursor:wait}
 .msg{min-height:20px;font-size:14px;margin-top:10px;color:var(--err)}
 .x{position:absolute;top:12px;right:12px;background:none;border:0;font-size:20px;cursor:pointer;color:var(--muted)}
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0));transform:translateX(-50%);background:var(--text);color:var(--ink);padding:9px 16px;border-radius:8px;font-weight:600;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0));transform:translateX(-50%);background:var(--text);color:var(--ink);padding:9px 16px;border-radius:8px;font-weight:600;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:30}
 .toast.on{opacity:1}
-@media (max-width:640px){.who{display:none}.grid,.grid.big{grid-template-columns:1fr}.mark span{display:none}}
+
+@media (max-width:860px){
+  .intro{grid-template-columns:1fr;gap:18px;padding-top:22px}
+  .score{width:100%}.score div{flex:1;min-width:0;padding:10px 12px}.score b{font-size:26px}
+  .score .last{display:none}
+}
+@media (max-width:640px){
+  .bar{gap:8px;height:auto;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+  .search{order:3;flex-basis:100%;max-width:none}
+  .day-h{top:110px}
+  .who{display:none}
+  #signinBtn,#logout{margin-left:auto}#logout+#signinBtn{margin-left:0}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .pl{font-size:16px}.media .wm{font-size:54px}
+  .sel{margin-left:0}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="bar">
-    <div class="mark" id="mark"><i></i><span>Gridiron Grail</span></div>
-    <a class="ghost hidden" id="adminBtn" href="/admin.html">Admin</a>
-    <span class="who hidden" id="who"></span>
-    <button class="ghost hidden" id="logout">Log out</button>
-    <button class="cta" id="signinBtn">Track my helmets</button>
-  </header>
+<header><div class="wrap bar">
+  <div class="mark" id="mark"><i></i><span>Gridiron Grail</span></div>
+  <label class="search"><span class="hidden">Find a username</span><input id="q" placeholder="Find your username" autocapitalize="none" spellcheck="false"></label>
+  <a class="ghost hidden" id="adminBtn" href="/admin.html">Admin</a>
+  <span class="who hidden" id="who"></span>
+  <button class="ghost hidden" id="logout">Log out</button>
+  <button class="cta" id="signinBtn">Track my helmets</button>
+</div></header>
 
-  <section class="hero">
-    <h1 class="headline">Every helmet<span>pulled.</span></h1>
-    <p class="lede">Every helmet hit from every break, with where it is now. Log in to see tracking numbers for the helmets that are yours.</p>
-    <div class="tools">
-      <label class="search"><span class="hidden">Find a username</span><input id="q" placeholder="Find your username" autocapitalize="none" spellcheck="false"></label>
-      <div id="chips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+<div class="wrap">
+  <section class="intro">
+    <div>
+      <h1>Every helmet <span>pulled.</span></h1>
+      <p>Every hit from every break and where it is now. Log in to see tracking for the helmets that are yours.</p>
     </div>
+    <div class="score" id="score" aria-label="Totals"></div>
   </section>
 
+  <div class="filters"><div id="chips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+    <select class="sel" id="teamSel" aria-label="Filter by team"><option value="">All teams</option></select></div>
+
   <section class="mine hidden" id="mine">
-    <h2>Your helmets</h2>
-    <p id="mineSub"></p>
-    <div class="grid big" id="mineGrid"></div>
+    <div class="mine-h"><h2>Your helmets</h2><p id="mineSub"></p></div>
+    <div class="grid" id="mineGrid"></div>
   </section>
 
   <main id="board"></main>
@@ -178,18 +206,17 @@ label{display:block;font-size:14px;color:var(--muted);margin:0 0 6px}
 <script src="teams.js"></script>
 <script>
 const $ = (id) => document.getElementById(id);
-const { teamStyle, trackingUrl, esc, fmtDate } = GG;
+const { TEAMS, teamStyle, trackingUrl, esc, fmtDate, helmetSvg, splitHelmet } = GG;
 const API = "/.netlify/functions/account";
-let mode = "login", board = [], mine = [], mineIds = new Set(), filter = "All", daysShown = 8, me = null, mustChange = false;
+let mode = "login", board = [], mine = [], mineIds = new Set(), filter = "All", team = "", daysShown = 6, me = null, mustChange = false;
 
 const STATUS = {
-  "In Fulfillment": { cls: "s-fulfill", label: "In fulfillment" },
-  "Shipped": { cls: "s-ship", label: "Shipped" },
-  "Buyback Hold": { cls: "s-hold", label: "Buyback hold" },
+  "In Fulfillment": { cls: "s-fulfill", label: "In fulfillment", color: "var(--gold)" },
+  "Shipped": { cls: "s-ship", label: "Shipped", color: "var(--ok)" },
+  "Buyback Hold": { cls: "s-hold", label: "Buyback hold", color: "var(--hold)" },
 };
 const ls = { get: (k) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {} } };
 function toast(t) { const el = $("toast"); el.textContent = t; el.classList.add("on"); setTimeout(() => el.classList.remove("on"), 1600); }
-
 async function call(action, data = {}) {
   const res = await fetch(API, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action, ...data }) });
   const out = await res.json().catch(() => ({ error: "Server didn't respond. Try again." }));
@@ -197,77 +224,90 @@ async function call(action, data = {}) {
   return out;
 }
 
-// ---- admin access: button shows on devices you've signed into admin from; tap the logo 5 times on a new device ----
+// admin shortcut: shows on devices signed into admin; tap the logo 5 times on a new device
 if (ls.get("gg_admin_device")) $("adminBtn").classList.remove("hidden");
 let taps = 0, tapTimer;
 $("mark").addEventListener("click", () => { taps++; clearTimeout(tapTimer); tapTimer = setTimeout(() => taps = 0, 1500); if (taps >= 5) location.href = "/admin.html"; });
 
-// ---- public board ----
+// ---- data ----
 async function loadBoard() {
   try {
-    const res = await fetch(API);
-    const out = await res.json();
+    const out = await (await fetch(API)).json();
     board = out.hits || [];
     $("updated").textContent = out.updatedAt ? `Updated ${new Date(out.updatedAt).toLocaleString()}` : "";
-    renderBoard();
+    const teams = [...new Set(board.map((h) => teamStyle(h.team).name))].sort();
+    $("teamSel").innerHTML = `<option value="">All teams</option>` + teams.map((t) => `<option>${esc(t)}</option>`).join("");
+    renderScore(); renderBoard();
   } catch { $("board").innerHTML = `<div class="empty"><strong>Couldn't load hits</strong>Refresh the page to try again.</div>`; }
+}
+
+function renderScore() {
+  const breaks = new Set(board.map((h) => `${h.date}|${h.breakNo}`)).size;
+  const shipped = board.filter((h) => h.status === "Shipped").length;
+  const last = board[0];
+  $("score").innerHTML = `<div><b>${board.length}</b><small>Helmets pulled</small></div><div><b>${breaks}</b><small>Breaks</small></div><div><b>${shipped}</b><small>Shipped</small></div>`
+    + (last ? `<div class="last"><b>${esc(fmtDate(last.date))}</b><small>Last break${last.breakNo ? `, #${esc(last.breakNo)}` : ""}</small></div>` : "");
 }
 
 function contrastText(bg, fg) {
   const lum = (hex) => { const n = parseInt(hex.slice(1), 16); const c = [n >> 16, (n >> 8) & 255, n & 255].map((v) => { v /= 255; return v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; }); return .2126 * c[0] + .7152 * c[1] + .0722 * c[2]; };
   const a = lum(bg), b = lum(fg); return (Math.max(a, b) + .05) / (Math.min(a, b) + .05) >= 2.2 ? fg : (a > .4 ? "#101010" : "#ffffff");
 }
-const plate = (team) => { const t = teamStyle(team); return { t, style: `--c1:${t.c1};--c2:${contrastText(t.c1, t.c2)}` }; };
-const statusPill = (s) => { const x = STATUS[s] || STATUS["In Fulfillment"]; return `<span class="status ${x.cls}">${x.label}</span>`; };
+const statusTag = (s) => { const x = STATUS[s] || STATUS["In Fulfillment"]; return `<span class="status ${x.cls}">${x.label}</span>`; };
 
+function card(h, { q = "", yours = false, tracking = false } = {}) {
+  const t = teamStyle(h.team), { player, type } = splitHelmet(h.helmet);
+  const style = `--c1:${t.c1};--c2:${contrastText(t.c1, t.c2)}`;
+  const media = `<span class="wm">${esc(t.abbr)}</span>${helmetSvg(h.team)}`;
+  const buyer = h.username ? (q ? esc(h.username).replace(esc(q), `<mark>${esc(q)}</mark>`) : esc(h.username)) : "";
+  const tr = tracking && h.tracking ? trackingUrl(h.tracking) : null;
+  return `<article class="card${yours ? " yours" : ""}" style="${style}">
+    <div class="media">${media}${h.breakNo ? `<span class="brk">Break ${esc(h.breakNo)}</span>` : ""}</div>
+    <div class="info">
+      <div class="tm"><i></i>${esc(t.name)}</div>
+      <div class="pl">${esc(player) || esc(t.nick || t.name)}</div>
+      <div class="meta">${buyer ? `<span class="buyer">@${buyer}</span>` : `<span class="buyer">${esc(fmtDate(h.date))}</span>`}${type ? `<span class="type">${esc(type)}</span>` : ""}</div>
+      <div class="meta">${statusTag(h.status)}</div>
+      ${tracking ? (tr ? `<div class="track"><code>${esc(h.tracking)}</code><a href="${esc(tr.url)}" target="_blank" rel="noopener">Track with ${esc(tr.carrier)}</a><button data-copy="${esc(h.tracking)}">Copy</button></div>`
+                       : `<div class="wait">${h.status === "Shipped" ? "Tracking coming soon." : "Tracking appears once it ships."}</div>`) : ""}
+    </div></article>`;
+}
+
+// ---- board ----
 function renderBoard() {
   const q = $("q").value.trim().replace(/^@+/, "").toLowerCase();
-  const base = board.filter((h) => !q || h.username.includes(q));
+  const base = board.filter((h) => (!q || h.username.includes(q)) && (!team || teamStyle(h.team).name === team));
   const counts = { All: base.length }; for (const k in STATUS) counts[k] = base.filter((h) => h.status === k).length;
   $("chips").innerHTML = ["All", ...Object.keys(STATUS)].filter((k) => k === "All" || counts[k])
-    .map((k) => `<button class="chip" aria-pressed="${filter === k}" data-f="${esc(k)}">${esc(k === "All" ? "All" : STATUS[k].label)} <b>${counts[k]}</b></button>`).join("");
+    .map((k) => `<button class="chip" aria-pressed="${filter === k}" data-f="${esc(k)}">${k === "All" ? "" : `<span class="d" style="background:${STATUS[k].color}"></span>`}${esc(k === "All" ? "All" : STATUS[k].label)} <b>${counts[k]}</b></button>`).join("");
   $("chips").querySelectorAll(".chip").forEach((b) => b.onclick = () => { filter = b.dataset.f; renderBoard(); });
 
   const shown = base.filter((h) => filter === "All" || h.status === filter);
   if (!shown.length) {
     $("board").innerHTML = board.length
-      ? `<div class="empty"><strong>No hits for @${esc(q)}</strong>Check the spelling. It needs to match the username you bought under.</div>`
+      ? `<div class="empty"><strong>${q ? `No hits for @${esc(q)}` : "Nothing matches"}</strong>${q ? "Check the spelling. It needs to match the username you bought under." : "Try a different filter."}</div>`
       : `<div class="empty"><strong>No breaks logged yet</strong>Hits show up here after each break.</div>`;
     $("more").classList.add("hidden"); return;
   }
   const days = new Map();
-  for (const h of shown) {
-    const d = h.date || ""; if (!days.has(d)) days.set(d, new Map());
-    const b = h.breakNo ?? "—"; const m = days.get(d); if (!m.has(b)) m.set(b, []); m.get(b).push(h);
-  }
-  const dayList = [...days].slice(0, q ? Infinity : daysShown);
-  $("board").innerHTML = dayList.map(([date, breaks]) => `
-    <section class="day"><h2>${esc(date ? fmtDate(date) : "Undated")}</h2>
-      ${[...breaks].map(([no, items]) => `<div class="brk">${no === "—" ? "" : `Break ${esc(no)}, `}${items.length} helmet${items.length === 1 ? "" : "s"}</div>
-        <div class="grid">${items.map((h) => boardCard(h, q)).join("")}</div>`).join("")}
-    </section>`).join("");
-  $("more").classList.toggle("hidden", !!q || days.size <= daysShown);
-}
-
-function boardCard(h, q) {
-  const { t, style } = plate(h.team);
-  const name = esc(h.username);
-  const shownName = q ? name.replace(esc(q), `<mark>${esc(q)}</mark>`) : name;
-  return `<article class="hit${mineIds.has(h.id) ? " yours" : ""}" style="${style}">
-    <div class="plate" aria-hidden="true"><span class="stripe"></span><span class="ab">${esc(t.abbr)}</span></div>
-    <div class="body"><div class="team">${esc(t.name)}</div>${h.helmet ? `<div class="helm">${esc(h.helmet)}</div>` : ""}
-      <div class="buyer">@${shownName}</div>${statusPill(h.status)}</div></article>`;
+  for (const h of shown) { const d = h.date || ""; if (!days.has(d)) days.set(d, []); days.get(d).push(h); }
+  const limited = !q && !team;
+  $("board").innerHTML = [...days].slice(0, limited ? daysShown : Infinity).map(([date, items]) => {
+    const nb = new Set(items.map((h) => h.breakNo)).size;
+    return `<section class="day"><div class="day-h"><h2>${esc(date ? fmtDate(date) : "Undated")}</h2><span>${items.length} helmet${items.length === 1 ? "" : "s"} across ${nb} break${nb === 1 ? "" : "s"}</span></div>
+      <div class="grid">${items.map((h) => card(h, { q, yours: mineIds.has(h.id) })).join("")}</div></section>`;
+  }).join("");
+  $("more").classList.toggle("hidden", !limited || days.size <= daysShown);
 }
 $("q").addEventListener("input", renderBoard);
-$("more").onclick = () => { daysShown += 8; renderBoard(); };
+$("teamSel").onchange = () => { team = $("teamSel").value; renderBoard(); };
+$("more").onclick = () => { daysShown += 6; renderBoard(); };
 
 // ---- my helmets (login only for tracking) ----
 async function loadMine() {
   const token = ls.get("gg_token"); if (!token) return renderMine();
-  try {
-    const out = await call("me", { token });
-    me = out.username; mine = out.hits; mineIds = new Set(mine.map((h) => h.id));
-  } catch (err) { if (err.status === 401) { ls.set("gg_token", null); me = null; mine = []; mineIds = new Set(); } }
+  try { const out = await call("me", { token }); me = out.username; mine = out.hits; mineIds = new Set(mine.map((h) => h.id)); }
+  catch (err) { if (err.status === 401) { ls.set("gg_token", null); me = null; mine = []; mineIds = new Set(); } }
   renderMine(); renderBoard();
 }
 function renderMine() {
@@ -278,22 +318,10 @@ function renderMine() {
   if (!me) return;
   const shipped = mine.filter((h) => h.status === "Shipped").length;
   $("mineSub").textContent = mine.length
-    ? `${mine.length} helmet${mine.length === 1 ? "" : "s"} matched to your account, ${shipped} shipped.`
-    : "We haven't matched any helmets to your account yet. Once we do, they show up here with tracking.";
-  $("mineGrid").innerHTML = mine.map(mineCard).join("");
+    ? `${mine.length} helmet${mine.length === 1 ? "" : "s"} matched to @${me}, ${shipped} shipped.`
+    : "No helmets matched to your account yet. Once we match them, they show up here with tracking.";
+  $("mineGrid").innerHTML = mine.map((h) => card(h, { tracking: true })).join("");
   $("mineGrid").querySelectorAll("[data-copy]").forEach((b) => b.onclick = () => navigator.clipboard?.writeText(b.dataset.copy).then(() => toast("Tracking number copied")));
-}
-function mineCard(h) {
-  const { t, style } = plate(h.team);
-  const tr = h.tracking ? trackingUrl(h.tracking) : null;
-  return `<article class="hit" style="${style}">
-    <div class="plate" aria-hidden="true"><span class="stripe"></span><span class="ab">${esc(t.abbr)}</span></div>
-    <div class="body"><div class="team">${esc(t.name)}</div>${h.helmet ? `<div class="helm">${esc(h.helmet)}</div>` : ""}
-      <div class="buyer">${h.breakNo ? `Break ${esc(h.breakNo)}, ` : ""}${esc(fmtDate(h.date))}</div>
-      ${statusPill(h.status)}
-      ${tr ? `<div class="track"><code>${esc(h.tracking)}</code><a href="${esc(tr.url)}" target="_blank" rel="noopener">Track with ${esc(tr.carrier)}</a><button data-copy="${esc(h.tracking)}">Copy</button></div>`
-           : `<div class="wait">${h.status === "Shipped" ? "Tracking coming soon." : "Tracking appears here once it ships."}</div>`}
-    </div></article>`;
 }
 $("logout").onclick = () => { ls.set("gg_token", null); me = null; mine = []; mineIds = new Set(); renderMine(); renderBoard(); };
 
