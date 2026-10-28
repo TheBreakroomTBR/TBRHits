@@ -18,6 +18,35 @@ async function snapshot(cache) {
   };
 }
 
+// Apply field updates to hits wherever they live: active ones go through Airtable, archived ones only live in Blobs.
+async function applyUpdates(cache, updates) {
+  const activeIds = new Set(cache.active.map((r) => r.id));
+  const toAirtable = updates.filter((u) => activeIds.has(u.id));
+  const toArchive = new Map(updates.filter((u) => !activeIds.has(u.id)).map((u) => [u.id, u]));
+  if (toAirtable.length) {
+    const changed = await atUpdate(toAirtable);
+    const byId = new Map(changed.map((r) => [r.id, r]));
+    cache.active = cache.active.map((r) => byId.get(r.id) || r);
+  }
+  if (toArchive.size) {
+    cache.archive = cache.archive.map((r) => {
+      const u = toArchive.get(r.id);
+      if (!u) return r;
+      const { id, ...fields } = u;
+      if (fields.assignedTo !== undefined) fields.assignedTo = normUser(fields.assignedTo);
+      return { ...r, ...fields };
+    });
+  }
+  await saveCache(cache);
+}
+
+async function autoAssignSet() {
+  const { blobs } = await store().list({ prefix: "user:" });
+  const set = new Set();
+  for (const b of blobs) { const u = await store().get(b.key, { type: "json" }); if (u?.autoAssign) set.add(u.username); }
+  return set;
+}
+
 export default async (req) => {
   if (req.method !== "POST") return json({ error: "POST only" }, 405);
   let body;
@@ -94,6 +123,8 @@ export default async (req) => {
           tracking: r.tracking || "",
         }))
         .filter((r) => r.username && r.team);
+      const auto = await autoAssignSet();
+      for (const r of rows) if (auto.has(r.username)) r.assignedTo = r.username;
       if (!rows.length) return json({ error: "No valid rows (each needs a username and team)" }, 400);
       if (rows.length > 60) return json({ error: "Send 60 rows or fewer per request" }, 400);
 
@@ -119,10 +150,7 @@ export default async (req) => {
       }
       if (!updates.length) return json({ error: "Nothing to update" }, 400);
       const cache = await getCache();
-      const changed = await atUpdate(updates);
-      const byId = new Map(changed.map((r) => [r.id, r]));
-      cache.active = cache.active.map((r) => byId.get(r.id) || r);
-      await saveCache(cache);
+      await applyUpdates(cache, updates);
       return json(await snapshot(cache));
     }
 
@@ -155,28 +183,42 @@ export default async (req) => {
     // ---- customer accounts ----
     if (action === "accounts") {
       const cache = await getCache();
-      const counts = {};
-      for (const h of [...cache.active, ...cache.archive]) counts[h.username] = (counts[h.username] || 0) + 1;
+      const all = [...cache.active, ...cache.archive];
       const { blobs } = await store().list({ prefix: "user:" });
       const users = [];
       for (const b of blobs) {
         const u = await store().get(b.key, { type: "json" });
-        if (u) users.push({
-          username: u.username, created: u.created, lastLogin: u.lastLogin || null,
-          approved: u.approved === true, approvedAt: u.approvedAt || null, note: u.note || "",
-          hits: counts[u.username] || 0,
+        if (!u) continue;
+        users.push({
+          username: u.username, created: u.created, lastLogin: u.lastLogin || null, note: u.note || "",
+          autoAssign: !!u.autoAssign,
+          assigned: all.filter((h) => h.assignedTo === u.username).length,
+          unassignedMatches: all.filter((h) => h.username === u.username && !h.assignedTo).length,
         });
       }
-      users.sort((a, b) => (b.created || "").localeCompare(a.created || ""));
+      users.sort((a, b) => (b.unassignedMatches - a.unassignedMatches) || (b.created || "").localeCompare(a.created || ""));
       return json({ users });
     }
 
-    if (action === "approveAccount" || action === "unapproveAccount") {
+    // Assign every unassigned hit bought under this username to the account (optionally auto-assign future ones)
+    if (action === "assignMatching") {
       const username = normUser(body.username);
       const u = await store().get(`user:${username}`, { type: "json" });
       if (!u) return json({ error: "No account with that username" }, 404);
-      u.approved = action === "approveAccount";
-      u.approvedAt = u.approved ? new Date().toISOString() : null;
+      if (body.autoAssign !== undefined) { u.autoAssign = !!body.autoAssign; await store().setJSON(`user:${username}`, u); }
+      const cache = await getCache();
+      const updates = [...cache.active, ...cache.archive]
+        .filter((h) => h.username === username && !h.assignedTo)
+        .map((h) => ({ id: h.id, assignedTo: username }));
+      if (updates.length) await applyUpdates(cache, updates);
+      return json({ ...(await snapshot(cache)), assignedCount: updates.length });
+    }
+
+    if (action === "setAutoAssign") {
+      const username = normUser(body.username);
+      const u = await store().get(`user:${username}`, { type: "json" });
+      if (!u) return json({ error: "No account with that username" }, 404);
+      u.autoAssign = !!body.on;
       await store().setJSON(`user:${username}`, u);
       return json({ ok: true });
     }
@@ -186,7 +228,7 @@ export default async (req) => {
       const u = await store().get(`user:${username}`, { type: "json" });
       if (!u) return json({ error: "No account with that username" }, 404);
       const temp = crypto.randomBytes(4).toString("hex"); // 8 chars
-      Object.assign(u, hashPassword(temp), { mustChange: true });
+      Object.assign(u, hashPassword(temp), { mustChange: true, pwChangedAt: new Date().toISOString() });
       await store().setJSON(`user:${username}`, u);
       return json({ username, tempPassword: temp });
     }
@@ -194,7 +236,11 @@ export default async (req) => {
     if (action === "deleteAccount") {
       const username = normUser(body.username);
       await store().delete(`user:${username}`);
-      return json({ ok: true });
+      // unassign so a new sign-up under this name can't see tracking
+      const cache = await getCache();
+      const updates = [...cache.active, ...cache.archive].filter((h) => h.assignedTo === username).map((h) => ({ id: h.id, assignedTo: "" }));
+      if (updates.length) await applyUpdates(cache, updates);
+      return json({ ok: true, unassigned: updates.length });
     }
 
     return json({ error: `Unknown action: ${action}` }, 400);
