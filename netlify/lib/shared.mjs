@@ -86,6 +86,7 @@ export const fromAirtable = (r) => ({
   breakNo: r.fields["Break #"] ?? null,
   status: r.fields["Status"] || "In Fulfillment",
   tracking: r.fields["Tracking"] || "",
+  assignedTo: normUser(r.fields["Assigned To"]),
   created: r.createdTime,
 });
 
@@ -98,6 +99,7 @@ const toFields = (h) => {
   if (h.breakNo !== undefined) f["Break #"] = h.breakNo === "" || h.breakNo === null ? null : Number(h.breakNo);
   if (h.status !== undefined) f["Status"] = h.status;
   if (h.tracking !== undefined) f["Tracking"] = String(h.tracking || "").trim();
+  if (h.assignedTo !== undefined) f["Assigned To"] = normUser(h.assignedTo);
   return f;
 };
 
@@ -168,7 +170,7 @@ export function checkPassword(pw, salt, hash) {
 const b64u = (s) => Buffer.from(s).toString("base64url");
 export function signToken(username, days = 60) {
   if (!SESSION_SECRET) throw new Error("SESSION_SECRET env var missing");
-  const payload = b64u(JSON.stringify({ u: username, exp: Date.now() + days * 864e5 }));
+  const payload = b64u(JSON.stringify({ u: username, iat: Date.now(), exp: Date.now() + days * 864e5 }));
   const sig = crypto.createHmac("sha256", SESSION_SECRET).update(payload).digest("base64url");
   return `${payload}.${sig}`;
 }
@@ -180,7 +182,7 @@ export function verifyToken(token) {
   if (sig.length !== expect.length || !crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expect))) return null;
   try {
     const p = JSON.parse(Buffer.from(payload, "base64url").toString());
-    return p.exp > Date.now() ? p.u : null;
+    return p.exp > Date.now() ? { username: p.u, iat: p.iat || 0 } : null;
   } catch { return null; }
 }
 
