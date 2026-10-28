@@ -7,146 +7,216 @@
 <title>Helmet Hits Admin | Gridiron Grail</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800&family=Saira:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#140d27;--panel:#1d1537;--panel2:#251b45;--purple:#2d1b69;--gold:#c9b800;--text:#f3effc;--muted:#a99fc6;--line:#33285a;--ok:#59d38c;--hold:#b9a4ff;--err:#ff7b7b;
+:root{--bg:#f6f5f2;--card:#fff;--line:#e7e3dc;--line2:#d9d4cb;--text:#1e1a27;--muted:#8b8695;--purple:#2d1b69;--purple2:#3d2a85;--gold:#c9b800;
+  --f-bg:#f7ecd6;--f-tx:#8a5800;--s-bg:#e1f3e4;--s-tx:#2c7a3c;--h-bg:#eee8fc;--h-tx:#5b3fb5;--a-bg:#e7ecfc;--a-tx:#3049a6;--err:#c43c3c;
   --cond:"Saira Condensed","Arial Narrow",Arial,sans-serif;--body:"Saira",system-ui,-apple-system,Segoe UI,sans-serif}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--ink);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.45}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);font-size:14px;line-height:1.45}
 body{padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
 button,input,select,textarea{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.wrap{max-width:1200px;margin:0 auto;padding:0 20px 60px}
-.bar{display:flex;align-items:center;gap:20px;padding:16px 0;flex-wrap:wrap}
-.mark{font-family:var(--cond);font-weight:800;font-size:22px;display:flex;gap:10px;align-items:center;margin-right:auto}
+:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.hidden{display:none!important}
+.wrap{max-width:1500px;margin:0 auto;padding:0 24px 60px}
+
+/* header */
+.top{background:var(--card);border-bottom:1px solid var(--line);margin-bottom:22px}
+.top .wrap{padding-bottom:0}
+.bar{display:flex;align-items:center;gap:18px;padding:14px 0 10px;flex-wrap:wrap}
+.mark{font-family:var(--cond);font-weight:800;font-size:22px;display:flex;gap:10px;align-items:center;margin-right:auto;color:var(--purple)}
 .mark i{width:11px;height:20px;background:var(--gold);transform:skewX(-14deg)}
 .mark small{font-family:var(--body);font-weight:500;font-size:13px;color:var(--muted)}
-.meter{min-width:190px;font-size:13px;color:var(--muted)}
-.meter .track{height:6px;background:var(--panel2);border-radius:3px;overflow:hidden;margin-top:4px}
-.meter .fill{height:100%;background:var(--ok)}
-.meter.warn .fill{background:var(--gold)}.meter.bad .fill{background:var(--err)}
-.meter b{color:var(--text);font-weight:600}
-.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:22px}
-.tabs button{background:none;border:0;padding:10px 16px;cursor:pointer;color:var(--muted);font-family:var(--cond);font-weight:600;font-size:19px;border-bottom:3px solid transparent;margin-bottom:-1px}
-.tabs button[aria-selected="true"]{color:var(--text);border-color:var(--gold)}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
-.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
-label{display:block;font-size:13px;color:var(--muted);margin-bottom:5px}
-.in{background:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 11px}
-.in:focus{outline:none;border-color:var(--gold)}
-textarea.in{width:100%;min-height:150px;resize:vertical;font-size:14px}
-.btn{border:0;border-radius:8px;padding:9px 16px;cursor:pointer;font-weight:600;background:var(--panel2);border:1px solid var(--line)}
-.btn:hover{border-color:var(--gold)}
-.btn.gold{background:var(--gold);color:#1a1300;border-color:var(--gold);font-family:var(--cond);font-weight:800;font-size:18px;padding:8px 20px}
+.meter{min-width:180px;font-size:12px;color:var(--muted)}
+.meter b{color:var(--text)}
+.meter .track{height:5px;background:#eeebe5;border-radius:3px;overflow:hidden;margin-top:4px}
+.meter .fill{height:100%;background:#4caf6a}.meter.warn .fill{background:var(--gold)}.meter.bad .fill{background:var(--err)}
+.tabs{display:flex;gap:2px}
+.tabs button{background:none;border:0;padding:10px 16px;cursor:pointer;color:var(--muted);font-weight:600;border-bottom:3px solid transparent}
+.tabs button[aria-selected="true"]{color:var(--purple);border-color:var(--purple)}
+.badge{display:inline-block;background:var(--gold);color:#1a1300;font-size:11px;font-weight:700;border-radius:999px;padding:0 7px;margin-left:6px;vertical-align:1px}
+
+/* cards + form */
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 20px 18px}
+.card h2{font-size:15px;font-weight:600;margin:0 0 16px}
+.form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 16px}
+.f label{display:block;font-size:13px;color:#5d5868;margin-bottom:5px}
+.f label em{font-style:normal;color:var(--muted)}
+.in{width:100%;background:#fff;border:1px solid var(--line2);border-radius:6px;padding:8px 11px;height:38px}
+.in:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(45,27,105,.12)}
+.up{text-transform:uppercase}
+.up::placeholder{text-transform:uppercase}
+.at{position:relative}.at .in{padding-left:26px}.at::before{content:"@";position:absolute;left:11px;top:9px;color:var(--muted)}
+textarea.in{height:auto;min-height:130px;resize:vertical}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:6px;overflow:hidden;height:38px}
+.seg button{border:0;background:#fff;padding:0 16px;cursor:pointer;font-weight:500;color:#4b4656}
+.seg button+button{border-left:1px solid var(--line2)}
+.seg button[aria-pressed="true"]{background:var(--purple);color:#fff;font-weight:600}
+.actions{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap}
+.btn{border:1px solid var(--line2);background:#fff;border-radius:6px;padding:7px 14px;cursor:pointer;font-weight:500}
+.btn:hover{border-color:var(--purple)}
+.btn.primary{background:var(--purple);border-color:var(--purple);color:#fff;font-weight:600}
+.btn.primary:hover{background:var(--purple2)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#1a1300;font-weight:600}
 .btn.danger{color:var(--err)}
 .btn:disabled{opacity:.5;cursor:wait}
+.link{background:none;border:0;color:var(--purple);font-weight:600;cursor:pointer;padding:0;margin-left:auto}
 .help{color:var(--muted);font-size:13px;margin:8px 0 0}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th{text-align:left;color:var(--muted);font-weight:500;font-size:13px;padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}
-td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
-tr.dirty td{background:rgba(201,184,0,.06)}
-.tscroll{overflow-x:auto;margin-top:14px}
-.dot{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px;vertical-align:-1px;box-shadow:inset -4px 0 0 var(--c2)}
-.bad-team{color:var(--gold);font-size:12px}
-td .in{padding:5px 8px;width:100%;min-width:120px}
-select.in{min-width:140px}
-.bulk{position:sticky;top:0;z-index:5;background:var(--purple);border-radius:10px;padding:10px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
-.bulk .in{background:var(--ink)}
-.pill{font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px}
-.p-f{color:var(--gold);background:rgba(201,184,0,.12)}.p-s{color:var(--ok);background:rgba(89,211,140,.12)}.p-h{color:var(--hold);background:rgba(185,164,255,.14)}
-.gate{max-width:380px;margin:12vh auto 0}
-.gate h1{font-family:var(--cond);font-weight:800;font-size:44px;margin:0 0 14px;line-height:1}
-.hidden{display:none!important}
-.err-msg{color:var(--err);font-size:14px;min-height:20px}
-.badge{display:inline-block;background:var(--gold);color:#1a1300;font-family:var(--body);font-size:12px;font-weight:700;border-radius:999px;padding:0 7px;margin-left:6px;vertical-align:3px}
-h3{font-family:var(--cond);font-weight:600;font-size:22px;margin:0 0 4px}
-.pend td{background:rgba(201,184,0,.05)}
-.note{max-width:340px;color:var(--text)}
-.match{font-weight:600}.match.zero{color:var(--err)}.match.some{color:var(--ok)}
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0));transform:translateX(-50%);background:var(--text);color:var(--ink);padding:10px 16px;border-radius:8px;font-weight:600;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw}
-.toast.on{opacity:1}.toast.err{background:var(--err)}
-.stack>*+*{margin-top:16px}
+.lastadd{font-size:13px;color:var(--s-tx)}
+
+/* pipeline */
+.pipe{display:flex;align-items:center;gap:8px;margin:22px 0 14px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap;border:0}
+.p-f{background:var(--f-bg);color:var(--f-tx)}.p-s{background:var(--s-bg);color:var(--s-tx)}.p-h{background:var(--h-bg);color:var(--h-tx)}.p-a{background:var(--a-bg);color:var(--a-tx)}.p-t{background:#efeaf9;color:var(--purple);cursor:pointer}
+.pipe .arrow{color:#c9c4bb}
+
+/* filters */
+.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.filters .in{height:34px;width:auto}
+.fbtn{border:1px solid var(--line2);background:#fff;border-radius:6px;padding:6px 12px;cursor:pointer;font-weight:500}
+.fbtn[aria-pressed="true"]{background:var(--purple);border-color:var(--purple);color:#fff}
+.fbtn b{font-weight:700;margin-left:4px;opacity:.75}
+.count{color:var(--muted);font-size:13px;margin-left:4px}
+.chk{display:inline-flex;gap:6px;align-items:center;color:#5d5868;cursor:pointer}
+
+/* table */
+.tablecard{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tscroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11px;font-weight:600;color:#7d7887;letter-spacing:.04em;padding:12px 10px;border-bottom:1px solid var(--line);white-space:nowrap;background:#fbfaf8}
+td{padding:9px 10px;border-bottom:1px solid #f0ede8;vertical-align:middle;white-space:nowrap}
+tbody tr:hover td{background:#fcfbf9}
+tr.editing td{background:#f4f0ff}
+.team{font-weight:700;text-transform:uppercase;font-size:13px;display:flex;align-items:center;gap:7px}
+.dot{width:10px;height:10px;border-radius:2px;flex:none;box-shadow:inset -3px 0 0 var(--c2)}
+.player{text-transform:uppercase;font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis}
+.user{color:var(--purple);font-weight:600}
+.brk{font-weight:700;color:var(--purple);background:#efeaf9;border-radius:4px;padding:2px 7px;font-size:12px}
 .muted{color:var(--muted)}
+td select.in{height:32px;width:144px;padding:4px 8px}
+.add{border:1px solid var(--line2);background:#fff;border-radius:5px;padding:2px 9px;color:#5d5868;cursor:pointer;font-size:12px}
+.trin{height:30px;width:190px;padding:4px 8px}
+.icon{width:30px;height:28px;border:1px solid var(--line2);background:#fff;border-radius:5px;cursor:pointer;display:inline-grid;place-items:center;font-size:13px}
+.icon.edit{border-color:#e7cf6c;background:#fffbea}
+.icon.del{color:var(--err)}
+.bulk{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 12px;background:#f4f0ff;border-bottom:1px solid var(--line)}
+.bulk .in{height:32px;width:auto}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+
+/* accounts/security tabs reuse */
+.stack>*+*{margin-top:16px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
+h3{font-size:16px;font-weight:600;margin:0 0 4px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+.pend td{background:#fffbea}
+.note{max-width:340px;white-space:normal}
+.match{font-weight:700}.match.some{color:var(--s-tx)}.match.zero{color:var(--err)}
+
+/* gate */
+.gate{max-width:380px;margin:12vh auto 0;padding:0 20px}
+.gate h1{font-family:var(--cond);font-weight:800;font-size:40px;margin:0 0 14px;line-height:1;color:var(--purple)}
+.gate .f+.f{margin-top:12px}
+.err-msg{color:var(--err);font-size:13px;min-height:18px;margin-top:10px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0));transform:translateX(-50%);background:var(--text);color:#fff;padding:10px 16px;border-radius:8px;font-weight:600;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;z-index:20}
+.toast.on{opacity:1}.toast.err{background:var(--err)}
+@media (max-width:1000px){.form{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.form{grid-template-columns:1fr}.wrap{padding:0 14px 40px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
 
 <section class="gate hidden" id="gate">
   <h1>Admin sign-in</h1>
-  <form id="gateForm" class="panel stack">
-    <div><label for="key">Admin key</label><input class="in" id="key" type="password" style="width:100%" autocomplete="current-password"></div>
-    <div><label for="devName">Name this device</label><input class="in" id="devName" style="width:100%" placeholder="e.g. Chris's iPhone"></div>
-    <button class="btn gold" style="width:100%" id="gateBtn">Sign in on this device</button>
+  <form id="gateForm" class="card">
+    <div class="f"><label for="key">Admin key</label><input class="in" id="key" type="password" autocomplete="current-password"></div>
+    <div class="f"><label for="devName">Name this device</label><input class="in" id="devName" placeholder="e.g. Chris Office"></div>
+    <div class="actions"><button class="btn primary" id="gateBtn" style="width:100%;height:40px">Sign in on this device</button></div>
     <div class="err-msg" id="gateMsg" role="alert"></div>
     <p class="help">You stay signed in here until you sign out or revoke this device. 5 wrong keys locks sign-in for 15 minutes.</p>
   </form>
 </section>
 
 <div id="app" class="hidden">
-  <header class="bar">
-    <div class="mark"><i></i>Helmet Hits <small>admin</small></div>
-    <div class="meter" id="mCalls"></div>
-    <div class="meter" id="mRecs"></div>
-    <button class="btn" id="syncBtn" title="Pull everything from Airtable. Costs about 1 call per 100 records.">Sync from Airtable</button>
-    <button class="btn" id="signOut">Sign out</button>
-  </header>
+  <header class="top"><div class="wrap">
+    <div class="bar">
+      <div class="mark"><i></i>Helmet Hits <small>admin</small></div>
+      <div class="meter" id="mCalls"></div>
+      <div class="meter" id="mRecs"></div>
+      <a class="btn" href="/" target="_blank" rel="noopener" style="text-decoration:none;color:var(--text)">View hit list</a>
+      <button class="btn" id="syncBtn" title="Pull everything from Airtable. About 1 call per 100 records.">Sync from Airtable</button>
+      <button class="btn" id="signOut">Sign out</button>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="breaks">Breaks</button>
+      <button role="tab" aria-selected="false" data-tab="accounts">Accounts<span class="badge hidden" id="pendBadge"></span></button>
+      <button role="tab" aria-selected="false" data-tab="security">Security</button>
+    </nav>
+  </div></header>
 
-  <nav class="tabs" role="tablist">
-    <button role="tab" aria-selected="true" data-tab="log">Log a break</button>
-    <button role="tab" aria-selected="false" data-tab="hits">Hits</button>
-    <button role="tab" aria-selected="false" data-tab="accounts">Accounts<span class="badge hidden" id="pendBadge"></span></button>
-    <button role="tab" aria-selected="false" data-tab="security">Security</button>
-  </nav>
+  <div class="wrap">
+  <!-- BREAKS -->
+  <section id="tab-breaks">
+    <form class="card" id="hitForm" autocomplete="off" novalidate>
+      <h2 id="formTitle">Add hit to break</h2>
+      <div class="form">
+        <div class="f"><label for="bDate">Break date</label><input class="in" type="date" id="bDate"></div>
+        <div class="f"><label for="bNo">Break # of the day</label><input class="in" type="number" min="1" id="bNo"></div>
+        <div class="f"><label for="fUser">Username</label><div class="at"><input class="in" id="fUser" placeholder="buyer username" autocapitalize="none" spellcheck="false" list="userList"></div></div>
+        <div class="f"><label for="fStatus">Status</label>
+          <select class="in" id="fStatus"><option>In Fulfillment</option><option>Shipped</option><option>Buyback Hold</option></select></div>
+        <div class="f"><label for="fTeam">Team</label><input class="in up" id="fTeam" placeholder="e.g. Eagles" list="teamList"></div>
+        <div class="f"><label for="fPlayer">Player / Item</label><input class="in up" id="fPlayer" placeholder="e.g. Jalen Hurts"></div>
+        <div class="f"><label>Type</label>
+          <div class="seg" id="fType"><button type="button" data-v="Authentic" aria-pressed="true">Authentic</button><button type="button" data-v="Speed Flex" aria-pressed="false">Speed Flex</button></div></div>
+        <div class="f"><label for="fTrack">Tracking # <em>(optional)</em></label><input class="in" id="fTrack" placeholder="USPS / UPS / FedEx"></div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="saveBtn" type="submit">Add hit</button>
+        <button class="btn" id="cancelBtn" type="button">Cancel</button>
+        <span class="lastadd" id="lastAdd"></span>
+        <button class="link" id="pasteToggle" type="button">Paste a whole break</button>
+      </div>
+      <div class="hidden" id="pasteBox" style="margin-top:16px">
+        <div class="f"><label for="paste">One hit per line: username, team, player, type</label>
+          <textarea class="in" id="paste" spellcheck="false" placeholder="bigjoe22, Eagles, Jalen Hurts, Authentic&#10;@helmethunter, KC, Patrick Mahomes, Speed Flex"></textarea></div>
+        <p class="help" id="pasteInfo">Commas or tabs both work. Type is optional and defaults to the toggle above. Uses the break date, # and status above.</p>
+        <div class="actions"><button class="btn primary" id="pasteSave" type="button" disabled>Add hits</button></div>
+      </div>
+    </form>
+    <datalist id="teamList"></datalist><datalist id="userList"></datalist>
 
-  <!-- LOG A BREAK -->
-  <section id="tab-log" class="stack">
-    <div class="panel stack">
-      <div class="row">
-        <div><label for="bDate">Break date</label><input class="in" type="date" id="bDate"></div>
-        <div><label for="bNo">Break # of the day</label><input class="in" type="number" min="1" id="bNo" style="width:110px"></div>
-        <div><label for="bStatus">Starting status</label>
-          <select class="in" id="bStatus"><option>In Fulfillment</option><option>Buyback Hold</option><option>Shipped</option></select></div>
-      </div>
-      <div>
-        <label for="paste">Results, one hit per line: username, team, helmet</label>
-        <textarea class="in" id="paste" spellcheck="false" placeholder="bigjoe22, Cowboys, Speed Authentic&#10;@helmethunter, KC, Mini Speed&#10;sandlot_sam, 49ers, Flash Authentic"></textarea>
-        <p class="help">Commas or tabs both work, so you can paste straight from a sheet. Team can be the full name, nickname, or abbreviation.</p>
-      </div>
+    <div class="pipe">
+      <span class="pill p-f">In Fulfillment</span><span class="arrow">→ add tracking →</span><span class="pill p-s">Shipped</span>
+      <span class="arrow" style="margin-left:10px">or</span><span class="pill p-h">Buyback Hold</span>
+      <span class="pill p-a" style="margin-left:14px">@Assigned</span><span>= buyer can see tracking</span>
     </div>
-    <div class="panel hidden" id="previewPanel">
-      <div class="row" style="justify-content:space-between;align-items:center">
-        <strong id="previewTitle"></strong>
-        <button class="btn gold" id="saveBreak">Save hits</button>
-      </div>
-      <div class="tscroll"><table><thead><tr><th>Username</th><th>Team</th><th>Helmet</th><th></th></tr></thead><tbody id="previewBody"></tbody></table></div>
-    </div>
-  </section>
 
-  <!-- HITS -->
-  <section id="tab-hits" class="hidden">
-    <div class="row">
-      <div><label for="fq">Search</label><input class="in" id="fq" placeholder="username, team, helmet, tracking"></div>
-      <div><label for="fs">Status</label><select class="in" id="fs"><option value="">All</option><option>In Fulfillment</option><option>Shipped</option><option>Buyback Hold</option></select></div>
-      <div><label for="fd">Break date</label><input class="in" type="date" id="fd"></div>
-      <div><label class="muted"><input type="checkbox" id="fa"> Show archived</label></div>
-      <button class="btn gold hidden" id="saveEdits"></button>
+    <div class="filters">
+      <input class="in" id="fq" placeholder="Search username, team, player, tracking…" style="width:260px">
+      <div id="statusBtns" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+      <select class="in" id="fBreak"><option value="">All breaks</option></select>
+      <select class="in" id="fSort"><option value="new">Newest first</option><option value="user">Username</option><option value="team">Team</option></select>
+      <label class="chk"><input type="checkbox" id="fa"> Archived</label>
+      <span class="count" id="count"></span>
     </div>
-    <div class="bulk hidden" id="bulk">
-      <strong id="selCount"></strong>
-      <select class="in" id="bulkStatus"><option value="">Set status…</option><option>In Fulfillment</option><option>Shipped</option><option>Buyback Hold</option></select>
-      <input class="in" id="bulkTrack" placeholder="Tracking for all selected">
-      <button class="btn" id="bulkApply">Apply</button>
-      <select class="in" id="bulkAssign"><option value="">Assign to account…</option></select>
-      <button class="btn" id="bulkUnassign">Unassign</button>
-      <button class="btn" id="bulkArchive" title="Moves Shipped hits out of Airtable. Customers still see them.">Archive shipped</button>
-      <button class="btn danger" id="bulkDelete">Delete</button>
+
+    <div class="tablecard">
+      <div class="bulk hidden" id="bulk">
+        <strong id="selCount"></strong>
+        <select class="in" id="bulkStatus"><option value="">Set status…</option><option>In Fulfillment</option><option>Shipped</option><option>Buyback Hold</option></select>
+        <input class="in" id="bulkTrack" placeholder="One tracking # for all selected">
+        <button class="btn" id="bulkApply">Apply</button>
+        <select class="in" id="bulkAssign"><option value="">Assign to account…</option></select>
+        <button class="btn" id="bulkUnassign">Unassign</button>
+        <button class="btn" id="bulkArchive" title="Moves Shipped hits out of Airtable. Buyers still see them.">Archive shipped</button>
+        <button class="btn danger" id="bulkDelete">Delete</button>
+      </div>
+      <div class="tscroll"><table>
+        <thead><tr><th><input type="checkbox" id="selAll" aria-label="Select all"></th><th>BREAK</th><th>USERNAME</th><th>TEAM</th><th>PLAYER / ITEM</th><th>TYPE</th><th>STATUS</th><th>TRACKING</th><th>ASSIGNED</th><th></th></tr></thead>
+        <tbody id="hitsBody"></tbody>
+      </table></div>
     </div>
-    <div class="tscroll"><table>
-      <thead><tr><th><input type="checkbox" id="selAll" aria-label="Select all"></th><th>Date</th><th>Brk</th><th>Username</th><th>Team</th><th>Helmet</th><th>Status</th><th>Tracking</th><th>Assigned to</th></tr></thead>
-      <tbody id="hitsBody"></tbody>
-    </table></div>
-    <p class="help" id="hitsFoot"></p>
   </section>
 
   <!-- ACCOUNTS -->
@@ -176,19 +246,20 @@ h3{font-family:var(--cond);font-weight:600;font-size:22px;margin:0 0 4px}
       <p class="help">If you see attempts you don't recognize, change ADMIN_KEY in Netlify and redeploy. Your signed-in devices stay signed in.</p>
     </div>
   </section>
-</div>
+  </div>
 </div>
 <div class="toast" id="toast"></div>
 
 <script src="teams.js"></script>
 <script>
 const $ = (id) => document.getElementById(id);
-const { teamStyle, findTeam, esc, fmtDate } = GG;
+const { TEAMS, teamStyle, findTeam, trackingUrl, esc, fmtDate } = GG;
 const API = "/.netlify/functions/admin";
-let S = { active: [], archive: [] }, sel = new Set(), edits = new Map(), preview = [], accounts = [];
+const STATUSES = ["In Fulfillment", "Shipped", "Buyback Hold"];
+const pillCls = { "In Fulfillment": "p-f", "Shipped": "p-s", "Buyback Hold": "p-h" };
+let S = { active: [], archive: [] }, sel = new Set(), accounts = [], editingId = null, statusFilter = "", trackOpen = null, type = "Authentic";
 
 function toast(t, err) { const el = $("toast"); el.textContent = t; el.className = "toast on" + (err ? " err" : ""); clearTimeout(toast.t); toast.t = setTimeout(() => el.className = "toast", err ? 5000 : 1800); }
-
 async function call(action, data = {}) {
   const res = await fetch(API, { method: "POST", headers: { "content-type": "application/json" }, credentials: "same-origin", body: JSON.stringify({ action, ...data }) });
   const out = await res.json().catch(() => ({ error: "No response from server" }));
@@ -206,8 +277,7 @@ $("gateForm").onsubmit = async (e) => {
   $("gateBtn").disabled = true; $("gateMsg").textContent = "";
   try {
     await call("login", { key: $("key").value, device: $("devName").value.trim() || navigator.platform || "Unnamed device" });
-    $("key").value = "";
-    await boot();
+    $("key").value = ""; await boot();
   } catch (err) { $("gateMsg").textContent = err.message; }
   finally { $("gateBtn").disabled = false; }
 };
@@ -226,10 +296,7 @@ function meter(el, label, used, limit) {
   el.className = "meter" + (pct >= 90 ? " bad" : pct >= 70 ? " warn" : "");
   el.innerHTML = `${label}: <b>${used}</b> / ${limit}<div class="track"><div class="fill" style="width:${pct}%"></div></div>`;
 }
-function renderMeters() {
-  meter($("mCalls"), "Airtable calls this month", S.usage.calls, S.usage.limit);
-  meter($("mRecs"), "Airtable records", S.records.used, S.records.limit);
-}
+function renderMeters() { meter($("mCalls"), "Airtable calls this month", S.usage.calls, S.usage.limit); meter($("mRecs"), "Airtable records", S.records.used, S.records.limit); }
 $("syncBtn").onclick = async () => {
   const est = Math.max(1, Math.ceil(S.records.used / 100));
   if (!confirm(`Pull everything from Airtable? Uses about ${est} API call${est > 1 ? "s" : ""}. Only needed if you edited records directly in Airtable.`)) return;
@@ -239,119 +306,171 @@ $("syncBtn").onclick = async () => {
 // ---- tabs ----
 document.querySelectorAll(".tabs button").forEach((b) => b.onclick = () => {
   document.querySelectorAll(".tabs button").forEach((x) => x.setAttribute("aria-selected", x === b));
-  for (const t of ["log", "hits", "accounts", "security"]) $("tab-" + t).classList.toggle("hidden", t !== b.dataset.tab);
+  for (const t of ["breaks", "accounts", "security"]) $("tab-" + t).classList.toggle("hidden", t !== b.dataset.tab);
   if (b.dataset.tab === "accounts") loadAccounts();
   if (b.dataset.tab === "security") loadSecurity();
 });
 
-// ---- log a break ----
+// ---- helmet string: "PLAYER (Type)" ----
+const joinHelmet = (player, t) => [player.trim().toUpperCase(), t ? `(${t})` : ""].filter(Boolean).join(" ");
+function splitHelmet(h) { const m = String(h || "").match(/^(.*?)\s*\((Authentic|Speed Flex)\)\s*$/i); return m ? { player: m[1], type: m[2] } : { player: h || "", type: "" }; }
+
+// ---- add / edit form ----
+$("teamList").innerHTML = TEAMS.map((t) => `<option value="${t.nick.toUpperCase()}">${t.name}</option>`).join("");
 const today = () => { const d = new Date(); return new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); };
-function nextBreakNo(date) { const nums = S.active.concat(S.archive).filter((h) => h.date === date).map((h) => Number(h.breakNo) || 0); return (nums.length ? Math.max(...nums) : 0) + 1; }
-function setDefaults() { if (!$("bDate").value) $("bDate").value = today(); $("bNo").value = nextBreakNo($("bDate").value); }
+const allHits = () => S.active.concat(S.archive);
+function nextBreakNo(date) { const n = allHits().filter((h) => h.date === date).map((h) => Number(h.breakNo) || 0); return n.length ? Math.max(...n) : 1; }
+function setDefaults() { if (!$("bDate").value) $("bDate").value = today(); if (!$("bNo").value) $("bNo").value = nextBreakNo($("bDate").value); }
 $("bDate").onchange = () => { $("bNo").value = nextBreakNo($("bDate").value); };
+function setType(v) { type = v; $("fType").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.v === v)); }
+$("fType").querySelectorAll("button").forEach((b) => b.onclick = () => setType(b.dataset.v));
 
-function parsePaste() {
-  preview = $("paste").value.split(/\r?\n/).map((l) => l.trim()).filter(Boolean).map((line) => {
-    const parts = (line.includes("\t") ? line.split("\t") : line.split(",")).map((x) => x.trim());
-    const [username = "", team = "", ...rest] = parts;
-    const t = findTeam(team);
-    return { username: username.replace(/^@+/, ""), team: t ? t.name : team, helmet: rest.join(", "), known: !!t };
-  }).filter((r) => r.username && !/^user(name)?$/i.test(r.username));
-  renderPreview();
+function clearHitFields() { for (const id of ["fUser", "fTeam", "fPlayer", "fTrack"]) $(id).value = ""; }
+function exitEdit() {
+  editingId = null; $("formTitle").textContent = "Add hit to break"; $("saveBtn").textContent = "Add hit";
+  clearHitFields(); $("fStatus").value = "In Fulfillment"; setDefaults(); renderHits();
 }
-$("paste").addEventListener("input", parsePaste);
+$("cancelBtn").onclick = () => { if (editingId) exitEdit(); else { clearHitFields(); $("lastAdd").textContent = ""; } };
 
-function renderPreview() {
-  $("previewPanel").classList.toggle("hidden", !preview.length);
-  const unknown = preview.filter((r) => !r.known).length;
-  $("previewTitle").textContent = `${preview.length} hit${preview.length === 1 ? "" : "s"} ready for break ${$("bNo").value || "?"}` + (unknown ? `, ${unknown} team${unknown > 1 ? "s" : ""} not recognized` : "");
-  $("saveBreak").textContent = `Save ${preview.length} hit${preview.length === 1 ? "" : "s"}`;
-  $("previewBody").innerHTML = preview.map((r, i) => {
-    const t = teamStyle(r.team);
-    return `<tr><td><input class="in" data-i="${i}" data-k="username" value="${esc(r.username)}"></td>
-      <td><span class="dot" style="background:${t.c1};--c2:${t.c2}"></span><input class="in" style="width:auto" data-i="${i}" data-k="team" value="${esc(r.team)}">${r.known ? "" : ' <span class="bad-team">not an NFL team, saved as typed</span>'}</td>
-      <td><input class="in" data-i="${i}" data-k="helmet" value="${esc(r.helmet)}"></td>
-      <td><button class="btn danger" data-del="${i}" aria-label="Remove row">✕</button></td></tr>`;
-  }).join("");
-  $("previewBody").querySelectorAll("input").forEach((inp) => inp.onchange = () => {
-    const r = preview[inp.dataset.i]; r[inp.dataset.k] = inp.value.trim();
-    if (inp.dataset.k === "team") { const t = findTeam(r.team); r.known = !!t; if (t) r.team = t.name; renderPreview(); }
-  });
-  $("previewBody").querySelectorAll("[data-del]").forEach((b) => b.onclick = () => { preview.splice(b.dataset.del, 1); renderPreview(); });
-}
-
-$("saveBreak").onclick = async () => {
-  const date = $("bDate").value, breakNo = Number($("bNo").value) || null, status = $("bStatus").value;
-  if (!date || !preview.length) return;
-  const rows = preview.map((r) => ({ username: r.username, team: r.team, helmet: r.helmet, date, breakNo, status }));
-  $("saveBreak").disabled = true;
+$("hitForm").onsubmit = async (e) => {
+  e.preventDefault();
+  const username = $("fUser").value.trim().replace(/^@+/, "").toLowerCase();
+  const t = findTeam($("fTeam").value);
+  const team = t ? t.name : $("fTeam").value.trim();
+  if (!username || !team) return toast("Username and team are required", true);
+  const hit = {
+    username, team, helmet: joinHelmet($("fPlayer").value, type),
+    date: $("bDate").value, breakNo: Number($("bNo").value) || null,
+    status: $("fStatus").value, tracking: $("fTrack").value.trim(),
+  };
+  if (hit.tracking && hit.status === "In Fulfillment") hit.status = "Shipped";
+  $("saveBtn").disabled = true;
   try {
-    for (let i = 0; i < rows.length; i += 50) apply(await call("add", { rows: rows.slice(i, i + 50) }));
-    toast(`Saved ${rows.length} hits to break ${breakNo}`);
-    loadAccounts(true);
-    $("paste").value = ""; preview = []; renderPreview(); $("bNo").value = nextBreakNo(date);
+    if (editingId) { apply(await call("update", { updates: [{ id: editingId, ...hit }] })); toast("Hit saved"); exitEdit(); }
+    else {
+      apply(await call("add", { rows: [hit] }));
+      $("lastAdd").textContent = `Added ${(t ? t.abbr : team).toUpperCase()} to @${username}, break ${hit.breakNo}`;
+      clearHitFields(); $("fUser").focus(); loadAccounts(true);
+    }
   } catch (err) { toast(err.message, true); }
-  finally { $("saveBreak").disabled = false; }
+  finally { $("saveBtn").disabled = false; }
 };
 
-// ---- hits table ----
-["fq", "fs", "fd", "fa"].forEach((id) => $(id).addEventListener("input", renderHits));
-const pillCls = { "In Fulfillment": "p-f", "Shipped": "p-s", "Buyback Hold": "p-h" };
+function startEdit(id) {
+  const h = S.active.find((x) => x.id === id); if (!h) return;
+  editingId = id; const { player, type: tp } = splitHelmet(h.helmet);
+  $("fUser").value = h.username; $("fTeam").value = (findTeam(h.team)?.nick || h.team).toUpperCase(); $("fPlayer").value = player;
+  setType(tp || type); $("bDate").value = h.date || ""; $("bNo").value = h.breakNo ?? ""; $("fStatus").value = h.status; $("fTrack").value = h.tracking || "";
+  $("formTitle").textContent = `Edit hit for @${h.username}`; $("saveBtn").textContent = "Save hit";
+  renderHits(); window.scrollTo({ top: 0, behavior: "smooth" }); $("fUser").focus();
+}
 
+// ---- paste a whole break ----
+let pasted = [];
+$("pasteToggle").onclick = () => { $("pasteBox").classList.toggle("hidden"); if (!$("pasteBox").classList.contains("hidden")) $("paste").focus(); };
+$("paste").oninput = () => {
+  pasted = $("paste").value.split(/\r?\n/).map((l) => l.trim()).filter(Boolean).map((line) => {
+    const [u = "", tm = "", player = "", tp = ""] = (line.includes("\t") ? line.split("\t") : line.split(",")).map((x) => x.trim());
+    const t = findTeam(tm); const ty = /speed/i.test(tp) ? "Speed Flex" : /auth/i.test(tp) ? "Authentic" : type;
+    return { username: u.replace(/^@+/, "").toLowerCase(), team: t ? t.name : tm, known: !!t, helmet: joinHelmet(player, ty) };
+  }).filter((r) => r.username && r.team && !/^user(name)?$/i.test(r.username));
+  const unknown = pasted.filter((r) => !r.known).map((r) => r.team);
+  $("pasteInfo").textContent = pasted.length
+    ? `${pasted.length} hit${pasted.length === 1 ? "" : "s"} ready for break ${$("bNo").value}.` + (unknown.length ? ` Not NFL teams, saved as typed: ${unknown.join(", ")}.` : "")
+    : "Commas or tabs both work. Type is optional and defaults to the toggle above. Uses the break date, # and status above.";
+  $("pasteSave").disabled = !pasted.length; $("pasteSave").textContent = `Add ${pasted.length || ""} hits`;
+};
+$("pasteSave").onclick = async () => {
+  const base = { date: $("bDate").value, breakNo: Number($("bNo").value) || null, status: $("fStatus").value };
+  const rows = pasted.map(({ username, team, helmet }) => ({ username, team, helmet, ...base }));
+  $("pasteSave").disabled = true;
+  try {
+    for (let i = 0; i < rows.length; i += 50) apply(await call("add", { rows: rows.slice(i, i + 50) }));
+    toast(`Added ${rows.length} hits to break ${base.breakNo}`); $("paste").value = ""; $("paste").oninput(); loadAccounts(true);
+  } catch (err) { toast(err.message, true); $("pasteSave").disabled = false; }
+};
+
+// ---- table ----
+["fq", "fBreak", "fSort", "fa"].forEach((id) => $(id).addEventListener("input", renderHits));
 function filtered() {
-  const q = $("fq").value.toLowerCase().trim(), st = $("fs").value, d = $("fd").value;
+  const q = $("fq").value.toLowerCase().trim(), br = $("fBreak").value, sort = $("fSort").value;
   const src = $("fa").checked ? S.archive.map((h) => ({ ...h, archived: true })) : S.active;
-  return src.filter((h) => (!st || h.status === st) && (!d || h.date === d) &&
-    (!q || [h.username, h.team, h.helmet, h.tracking, h.assignedTo].join(" ").toLowerCase().includes(q)))
-    .sort((a, b) => (b.date || "").localeCompare(a.date || "") || (b.breakNo || 0) - (a.breakNo || 0) || a.username.localeCompare(b.username));
+  const list = src.filter((h) => (!statusFilter || h.status === statusFilter) && (!br || `${h.date}|${h.breakNo}` === br) &&
+    (!q || [h.username, h.team, h.helmet, h.tracking, h.assignedTo].join(" ").toLowerCase().includes(q)));
+  const byNew = (a, b) => (b.date || "").localeCompare(a.date || "") || (b.breakNo || 0) - (a.breakNo || 0) || (b.created || "").localeCompare(a.created || "");
+  return list.sort(sort === "user" ? (a, b) => a.username.localeCompare(b.username) || byNew(a, b) : sort === "team" ? (a, b) => a.team.localeCompare(b.team) || byNew(a, b) : byNew);
+}
+
+function renderFilters() {
+  const src = $("fa").checked ? S.archive : S.active;
+  $("statusBtns").innerHTML = [["", "All", src.length], ...STATUSES.map((s) => [s, s, src.filter((h) => h.status === s).length])]
+    .map(([v, l, n]) => `<button class="fbtn" aria-pressed="${statusFilter === v}" data-s="${esc(v)}">${esc(l)}<b>${n}</b></button>`).join("");
+  $("statusBtns").querySelectorAll(".fbtn").forEach((b) => b.onclick = () => { statusFilter = b.dataset.s; renderHits(); });
+  const cur = $("fBreak").value;
+  const breaks = [...new Set(allHits().map((h) => `${h.date}|${h.breakNo}`))].sort().reverse();
+  $("fBreak").innerHTML = `<option value="">All breaks</option>` + breaks.map((k) => { const [d, n] = k.split("|"); return `<option value="${esc(k)}">${esc(fmtDate(d))}, break ${esc(n)}</option>`; }).join("");
+  $("fBreak").value = breaks.includes(cur) ? cur : "";
+  $("userList").innerHTML = [...new Set(allHits().map((h) => h.username))].sort().map((u) => `<option value="${esc(u)}">`).join("");
+}
+
+function trackCell(h, arch) {
+  if (!arch && trackOpen === h.id) return `<input class="in trin" data-trin="${h.id}" value="${esc(h.tracking)}" placeholder="Paste tracking, Enter to save">`;
+  if (h.tracking) { const c = trackingUrl(h.tracking); const last4 = h.tracking.replace(/\s/g, "").slice(-4);
+    return `<button class="pill p-t" ${arch ? "disabled" : `data-tr="${h.id}"`} title="${esc(h.tracking)}">${esc(c.carrier)} ··${esc(last4)}</button>`; }
+  return arch ? `<span class="muted">—</span>` : `<button class="add" data-tr="${h.id}">+ Add</button>`;
 }
 
 function renderHits() {
+  renderFilters();
   const list = filtered(), arch = $("fa").checked;
+  $("count").textContent = `${list.length} hit${list.length === 1 ? "" : "s"}`;
   $("hitsBody").innerHTML = list.map((h) => {
-    const t = teamStyle(h.team), e = edits.get(h.id) || {};
-    const status = e.status ?? h.status, tracking = e.tracking ?? h.tracking;
-    return `<tr class="${edits.has(h.id) ? "dirty" : ""}">
+    const t = teamStyle(h.team), { player, type: tp } = splitHelmet(h.helmet);
+    return `<tr class="${editingId === h.id ? "editing" : ""}">
       <td>${arch ? "" : `<input type="checkbox" data-sel="${h.id}" ${sel.has(h.id) ? "checked" : ""} aria-label="Select">`}</td>
-      <td>${esc(fmtDate(h.date))}</td><td>${esc(h.breakNo ?? "")}</td><td>@${esc(h.username)}</td>
-      <td><span class="dot" style="background:${t.c1};--c2:${t.c2}"></span>${esc(t.name)}</td><td>${esc(h.helmet)}</td>
-      <td>${arch ? `<span class="pill ${pillCls[status]}">${esc(status)}</span>` :
-        `<select class="in" data-id="${h.id}" data-k="status">${["In Fulfillment", "Shipped", "Buyback Hold"].map((s) => `<option ${s === status ? "selected" : ""}>${s}</option>`).join("")}</select>`}</td>
-      <td>${arch ? esc(tracking) : `<input class="in" data-id="${h.id}" data-k="tracking" value="${esc(tracking)}" placeholder="—">`}</td>
-      <td>${h.assignedTo ? `<span class="pill p-s">@${esc(h.assignedTo)}</span>` : `<span class="muted">not assigned</span>`}</td></tr>`;
-  }).join("") || `<tr><td colspan="9" class="muted" style="padding:24px">${S.active.length || arch ? "Nothing matches these filters." : "No hits yet. Log a break to get started."}</td></tr>`;
+      <td><span class="muted">${esc(h.date ? fmtDate(h.date) : "")}</span> ${h.breakNo ? `<span class="brk">Brk ${esc(h.breakNo)}</span>` : ""}</td>
+      <td class="user">@${esc(h.username)}</td>
+      <td><span class="team"><span class="dot" style="background:${t.c1};--c2:${t.c2}"></span>${esc(t.nick || t.name)}</span></td>
+      <td class="player" title="${esc(player)}">${esc(player) || '<span class="muted">—</span>'}</td>
+      <td>${esc(tp) || '<span class="muted">—</span>'}</td>
+      <td>${arch ? `<span class="pill ${pillCls[h.status]}">${esc(h.status)}</span>` :
+        `<select class="in" data-st="${h.id}">${STATUSES.map((s) => `<option ${s === h.status ? "selected" : ""}>${s}</option>`).join("")}</select>`}</td>
+      <td>${trackCell(h, arch)}</td>
+      <td>${h.assignedTo ? `<span class="pill p-a">@${esc(h.assignedTo)}</span>` : '<span class="muted">—</span>'}</td>
+      <td>${arch ? "" : `<button class="icon edit" data-edit="${h.id}" title="Edit" aria-label="Edit">✎</button> <button class="icon del" data-del="${h.id}" title="Delete" aria-label="Delete">✕</button>`}</td></tr>`;
+  }).join("") || `<tr><td colspan="10" class="empty">${S.active.length || arch ? "Nothing matches these filters." : "No hits yet. Add the first hit from tonight's break above."}</td></tr>`;
 
-  $("hitsBody").querySelectorAll("[data-sel]").forEach((c) => c.onchange = () => { c.checked ? sel.add(c.dataset.sel) : sel.delete(c.dataset.sel); renderBulk(); });
-  $("hitsBody").querySelectorAll("[data-id]").forEach((inp) => inp.onchange = () => {
-    const h = S.active.find((x) => x.id === inp.dataset.id); const e = edits.get(h.id) || {};
-    e[inp.dataset.k] = inp.value.trim();
-    // entering a tracking number on an unshipped hit marks it shipped
-    if (inp.dataset.k === "tracking" && e.tracking && (e.status ?? h.status) === "In Fulfillment") e.status = "Shipped";
-    if ((e.status ?? h.status) === h.status && (e.tracking ?? h.tracking) === h.tracking) edits.delete(h.id); else edits.set(h.id, e);
-    renderHits();
+  const B = $("hitsBody");
+  B.querySelectorAll("[data-sel]").forEach((c) => c.onchange = () => { c.checked ? sel.add(c.dataset.sel) : sel.delete(c.dataset.sel); showBulk(); });
+  B.querySelectorAll("[data-st]").forEach((s) => s.onchange = () => saveOne(s.dataset.st, { status: s.value }));
+  B.querySelectorAll("[data-tr]").forEach((b) => b.onclick = () => { trackOpen = b.dataset.tr; renderHits(); B.querySelector("[data-trin]")?.focus(); });
+  const tin = B.querySelector("[data-trin]");
+  if (tin) {
+    tin.onkeydown = (e) => { if (e.key === "Enter") tin.blur(); if (e.key === "Escape") { trackOpen = null; renderHits(); } };
+    tin.onblur = () => {
+      const h = S.active.find((x) => x.id === tin.dataset.trin); const v = tin.value.trim(); trackOpen = null;
+      if (!h || v === (h.tracking || "")) return renderHits();
+      saveOne(h.id, { tracking: v, ...(v && h.status === "In Fulfillment" ? { status: "Shipped" } : {}) });
+    };
+  }
+  B.querySelectorAll("[data-edit]").forEach((b) => b.onclick = () => startEdit(b.dataset.edit));
+  B.querySelectorAll("[data-del]").forEach((b) => b.onclick = async () => {
+    const h = S.active.find((x) => x.id === b.dataset.del);
+    if (!confirm(`Delete @${h.username}'s ${teamStyle(h.team).name} hit? Use this for mistakes only.`)) return;
+    try { apply(await call("delete", { ids: [h.id] })); toast("Deleted"); } catch (err) { toast(err.message, true); }
   });
-  $("selAll").checked = list.length > 0 && list.every((h) => sel.has(h.id));
-  $("selAll").disabled = arch;
-  $("hitsFoot").textContent = `${list.length} shown. ${S.archive.length} archived hit${S.archive.length === 1 ? "" : "s"} stay visible to customers but no longer count against Airtable.`;
-  $("saveEdits").classList.toggle("hidden", !edits.size);
-  $("saveEdits").textContent = `Save ${edits.size} change${edits.size === 1 ? "" : "s"}`;
-  renderBulk();
+  $("selAll").checked = list.length > 0 && list.every((h) => sel.has(h.id)); $("selAll").disabled = arch;
+  showBulk();
+}
+async function saveOne(id, fields) {
+  try { apply(await call("update", { updates: [{ id, ...fields }] })); toast("Saved"); } catch (err) { toast(err.message, true); renderHits(); }
 }
 $("selAll").onchange = () => { filtered().forEach((h) => $("selAll").checked ? sel.add(h.id) : sel.delete(h.id)); renderHits(); };
-
-function renderBulk() {
+function showBulk() {
   for (const id of [...sel]) if (!S.active.some((h) => h.id === id)) sel.delete(id);
   $("bulk").classList.toggle("hidden", !sel.size || $("fa").checked);
   $("selCount").textContent = `${sel.size} selected`;
 }
-
-$("saveEdits").onclick = async () => {
-  const updates = [...edits].map(([id, e]) => ({ id, ...e }));
-  $("saveEdits").disabled = true;
-  try { apply(await call("update", { updates })); edits.clear(); renderHits(); toast(`Saved ${updates.length} change${updates.length === 1 ? "" : "s"}`); }
-  catch (err) { toast(err.message, true); } finally { $("saveEdits").disabled = false; }
-};
-
 $("bulkApply").onclick = async () => {
   const status = $("bulkStatus").value, tracking = $("bulkTrack").value.trim();
   if (!status && !tracking) return toast("Pick a status or enter a tracking number", true);
@@ -362,7 +481,7 @@ $("bulkApply").onclick = async () => {
 $("bulkArchive").onclick = async () => {
   const ids = [...sel].filter((id) => S.active.find((h) => h.id === id)?.status === "Shipped");
   if (!ids.length) return toast("Only Shipped hits can be archived", true);
-  if (!confirm(`Archive ${ids.length} shipped hit${ids.length > 1 ? "s" : ""}? They leave Airtable but customers still see them.`)) return;
+  if (!confirm(`Archive ${ids.length} shipped hit${ids.length > 1 ? "s" : ""}? They leave Airtable but buyers still see them.`)) return;
   try { apply(await call("archive", { ids })); sel.clear(); renderHits(); toast(`Archived ${ids.length}`); } catch (err) { toast(err.message, true); }
 };
 $("bulkDelete").onclick = async () => {
