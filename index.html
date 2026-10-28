@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Helmet Hits | Gridiron Grail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#140d27; --panel:#1d1537; --panel2:#251b45; --purple:#2d1b69; --gold:#c9b800;
+  --text:#f3effc; --muted:#a99fc6; --line:#33285a; --ok:#59d38c; --hold:#b9a4ff; --err:#ff7b7b;
+  --cond:"Saira Condensed","Arial Narrow",Arial,sans-serif; --body:"Saira",system-ui,-apple-system,Segoe UI,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ink);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.5}
+body{min-height:100vh;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);
+  background:
+    radial-gradient(1200px 500px at 85% -10%, rgba(45,27,105,.75), transparent 60%),
+    repeating-linear-gradient(90deg, transparent 0 79px, rgba(255,255,255,.025) 79px 80px),
+    var(--ink);}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+/* top bar */
+.bar{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.mark{font-family:var(--cond);font-weight:800;font-size:22px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.mark i{width:12px;height:22px;background:var(--gold);display:inline-block;transform:skewX(-14deg)}
+.who{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:14px}
+.ghost{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer;color:var(--text)}
+.ghost:hover{border-color:var(--gold)}
+
+/* auth */
+.auth{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding:56px 0 80px}
+.headline{font-family:var(--cond);font-weight:800;font-size:clamp(56px,9vw,112px);line-height:.86;margin:0;letter-spacing:-.01em}
+.headline span{display:block;color:transparent;-webkit-text-stroke:2px var(--gold)}
+.lede{color:var(--muted);max-width:42ch;margin:22px 0 0;font-size:17px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px}
+.tabs{display:flex;gap:4px;background:var(--ink);padding:4px;border-radius:10px;margin-bottom:22px}
+.tabs button{flex:1;border:0;background:none;padding:9px;border-radius:7px;cursor:pointer;color:var(--muted);font-weight:600}
+.tabs button[aria-selected="true"]{background:var(--purple);color:var(--text)}
+label{display:block;font-size:14px;color:var(--muted);margin:0 0 6px}
+.field{margin-bottom:16px}
+.in{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:9px;padding:12px 14px;font-size:16px}
+.in:focus{border-color:var(--gold);outline:none}
+.at{position:relative}.at .in{padding-left:30px}.at::before{content:"@";position:absolute;left:13px;top:12px;color:var(--muted)}
+.hint{font-size:13px;color:var(--muted);margin-top:6px}
+.go{width:100%;border:0;border-radius:10px;padding:13px;background:var(--gold);color:#1a1300;font-family:var(--cond);font-weight:800;font-size:20px;letter-spacing:.03em;cursor:pointer}
+.go:disabled{opacity:.6;cursor:wait}
+.msg{min-height:22px;font-size:14px;margin-top:12px;color:var(--err)}
+
+/* dashboard */
+.hello{padding:28px 0 8px}
+.hello h1{font-family:var(--cond);font-weight:800;font-size:clamp(40px,6vw,64px);line-height:.95;margin:0}
+.hello p{color:var(--muted);margin:8px 0 0}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 8px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 14px;cursor:pointer;font-weight:500;font-size:14px;display:flex;gap:8px;align-items:center}
+.chip b{font-family:var(--cond);font-size:17px;font-weight:700}
+.chip[aria-pressed="true"]{background:var(--text);color:var(--ink);border-color:var(--text)}
+.group{margin-top:30px}
+.group h2{font-family:var(--cond);font-weight:700;font-size:20px;margin:0 0 12px;color:var(--muted);display:flex;gap:12px;align-items:center}
+.group h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+
+/* the locker plate */
+.hit{display:grid;grid-template-columns:104px 1fr;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;min-height:150px}
+.plate{background:var(--c1);position:relative;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px;overflow:hidden}
+.plate::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.14),transparent 45%)}
+.plate .ab{font-family:var(--cond);font-weight:800;font-size:46px;line-height:1;color:var(--c2);writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.04em;position:relative}
+.plate .stripe{position:absolute;top:0;bottom:0;right:14px;width:6px;background:var(--c2);opacity:.9}
+.body{padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.team{font-family:var(--cond);font-weight:700;font-size:23px;line-height:1.05}
+.helm{color:var(--text);opacity:.88;font-size:15px}
+.meta{color:var(--muted);font-size:13px}
+.status{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;padding:3px 10px;border-radius:999px;width:fit-content;margin-top:auto}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.s-fulfill{color:var(--gold);background:rgba(201,184,0,.12)}
+.s-ship{color:var(--ok);background:rgba(89,211,140,.12)}
+.s-hold{color:var(--hold);background:rgba(185,164,255,.14)}
+.track{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:4px}
+.track code{flex-basis:100%;font-family:var(--body);font-size:13px;letter-spacing:.02em;background:var(--ink);border:1px solid var(--line);padding:3px 8px;border-radius:6px;overflow-wrap:anywhere}
+.track a,.track button{font-size:13px;font-weight:600;color:var(--ink);background:var(--gold);border:0;border-radius:6px;padding:4px 10px;text-decoration:none;cursor:pointer}
+.track button{background:var(--panel2);color:var(--text)}
+.empty{border:1px dashed var(--line);border-radius:14px;padding:36px;text-align:center;color:var(--muted);margin-top:24px}
+.pending{border-style:solid;border-color:var(--gold);background:rgba(201,184,0,.06)}
+.empty strong{display:block;color:var(--text);font-family:var(--cond);font-size:26px;margin-bottom:6px}
+.foot{color:var(--muted);font-size:13px;padding:40px 0 30px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hidden{display:none!important}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0));transform:translateX(-50%);background:var(--text);color:var(--ink);padding:9px 16px;border-radius:8px;font-weight:600;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+@media (max-width:760px){#whoName{display:none}.mark{white-space:nowrap}.ghost{white-space:nowrap}.auth{grid-template-columns:1fr;gap:28px;padding:24px 0 48px}.grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="bar">
+    <div class="mark"><i></i>Gridiron Grail</div>
+    <div class="who hidden" id="who"><span id="whoName"></span><button class="ghost" id="refresh">Refresh</button><button class="ghost" id="logout">Log out</button></div>
+  </header>
+
+  <!-- logged out -->
+  <section class="auth" id="authView">
+    <div>
+      <h1 class="headline">Every helmet<span>you've hit.</span></h1>
+      <p class="lede">Log in with the username you buy under to see every helmet you've pulled, where it is, and its tracking number once it ships.</p>
+    </div>
+    <div class="card">
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-mode="login">Log in</button>
+        <button role="tab" aria-selected="false" data-mode="signup">Create account</button>
+      </div>
+      <form id="authForm" novalidate>
+        <div class="field">
+          <label for="u">Username</label>
+          <div class="at"><input class="in" id="u" autocomplete="username" autocapitalize="none" spellcheck="false" required></div>
+          <div class="hint" id="uHint">Use the exact username you buy under on stream.</div>
+        </div>
+        <div class="field">
+          <label for="p">Password</label>
+          <input class="in" id="p" type="password" autocomplete="current-password" required>
+        </div>
+        <div class="field hidden" id="noteField">
+          <label for="note">Help us confirm it's you</label>
+          <input class="in" id="note" maxlength="200" placeholder="e.g. your last hit, or your order #">
+          <div class="hint">New accounts are approved by hand so nobody can see someone else's hits.</div>
+        </div>
+        <button class="go" id="authBtn" type="submit">Log in</button>
+        <div class="msg" id="authMsg" role="alert"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- change temp password -->
+  <section class="auth hidden" id="pwView">
+    <div><h1 class="headline">Set a new<span>password.</span></h1><p class="lede">You logged in with a temporary password. Pick a new one to keep going.</p></div>
+    <div class="card">
+      <form id="pwForm" novalidate>
+        <div class="field"><label for="np">New password</label><input class="in" id="np" type="password" autocomplete="new-password" minlength="6"></div>
+        <button class="go" type="submit">Save password</button>
+        <div class="msg" id="pwMsg" role="alert"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- logged in -->
+  <main class="hidden" id="dash">
+    <div class="hello"><h1 id="helloH"></h1><p id="helloP"></p></div>
+    <div class="filters" id="filters"></div>
+    <div id="list"></div>
+    <div class="foot"><span id="updated"></span><span>Questions about a hit? Message us on stream.</span></div>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="teams.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const { teamStyle, trackingUrl, esc, fmtDate } = GG;
+const API = "/.netlify/functions/account";
+let mode = "login", hits = [], filter = "All";
+
+const STATUS = {
+  "In Fulfillment": { cls: "s-fulfill", label: "In fulfillment" },
+  "Shipped": { cls: "s-ship", label: "Shipped" },
+  "Buyback Hold": { cls: "s-hold", label: "Buyback hold" },
+};
+
+async function call(action, data = {}) {
+  const res = await fetch(API, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action, ...data }) });
+  const out = await res.json().catch(() => ({ error: "Server didn't respond. Try again." }));
+  if (!res.ok) throw Object.assign(new Error(out.error || "Something went wrong"), { status: res.status });
+  return out;
+}
+function toast(t) { const el = $("toast"); el.textContent = t; el.classList.add("on"); setTimeout(() => el.classList.remove("on"), 1600); }
+const token = () => { try { return localStorage.getItem("gg_token"); } catch { return null; } };
+const setToken = (t) => { try { t ? localStorage.setItem("gg_token", t) : localStorage.removeItem("gg_token"); } catch {} };
+
+function show(view) {
+  for (const v of ["authView", "pwView", "dash"]) $(v).classList.toggle("hidden", v !== view);
+  $("who").classList.toggle("hidden", view !== "dash");
+}
+
+// ---- auth ----
+document.querySelectorAll(".tabs button").forEach((b) => b.addEventListener("click", () => {
+  mode = b.dataset.mode;
+  document.querySelectorAll(".tabs button").forEach((x) => x.setAttribute("aria-selected", x === b));
+  $("authBtn").textContent = mode === "login" ? "Log in" : "Create account";
+  $("p").autocomplete = mode === "login" ? "current-password" : "new-password";
+  $("uHint").textContent = mode === "login" ? "Use the exact username you buy under on stream." : "Must match the username you buy under, so your hits land here. At least 6 characters for the password.";
+  $("noteField").classList.toggle("hidden", mode === "login");
+  $("authMsg").textContent = "";
+}));
+
+$("authForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const username = $("u").value.trim().replace(/^@+/, ""), password = $("p").value, note = $("note").value.trim();
+  if (!username || !password) { $("authMsg").textContent = "Enter your username and password."; return; }
+  if (mode === "signup" && note.length < 3) { $("authMsg").textContent = "Add your last hit or order # so we can approve you."; return; }
+  $("authBtn").disabled = true; $("authMsg").textContent = "";
+  try {
+    const out = await call(mode, { username, password, note });
+    setToken(out.token);
+    $("p").value = "";
+    if (out.mustChange) show("pwView"); else await load();
+  } catch (err) { $("authMsg").textContent = err.message; }
+  finally { $("authBtn").disabled = false; }
+});
+
+$("pwForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  try { await call("changePassword", { token: token(), password: $("np").value }); toast("Password saved"); await load(); }
+  catch (err) { $("pwMsg").textContent = err.message; }
+});
+
+$("logout").addEventListener("click", () => { setToken(null); hits = []; show("authView"); });
+$("refresh").addEventListener("click", () => load().then(() => toast("Up to date")));
+
+// ---- dashboard ----
+async function load() {
+  try {
+    const out = await call("me", { token: token() });
+    hits = out.hits;
+    $("whoName").textContent = "@" + out.username;
+    $("helloH").textContent = `@${out.username}`;
+    if (out.pending) {
+      $("helloP").textContent = ""; $("filters").innerHTML = ""; $("updated").textContent = "";
+      $("list").innerHTML = `<div class="empty pending"><strong>Waiting for approval</strong>Your account is set up. Once we confirm it's you, every helmet you've hit under @${esc(out.username)} shows up here. Check back after your next break.</div>`;
+      show("dash"); return;
+    }
+    const shipped = hits.filter((h) => h.status === "Shipped").length;
+    $("helloP").textContent = hits.length
+      ? `${hits.length} helmet${hits.length === 1 ? "" : "s"} hit, ${shipped} shipped.`
+      : "";
+    $("updated").textContent = out.updatedAt ? `Last updated ${new Date(out.updatedAt).toLocaleString()}` : "";
+    show("dash"); render();
+  } catch (err) {
+    if (err.status === 401) { setToken(null); show("authView"); }
+    else toast(err.message);
+  }
+}
+
+function contrastText(bg, fg) {
+  const lum = (hex) => { const n = parseInt(hex.slice(1), 16); const c = [n >> 16, (n >> 8) & 255, n & 255].map((v) => { v /= 255; return v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; }); return .2126 * c[0] + .7152 * c[1] + .0722 * c[2]; };
+  const a = lum(bg), b = lum(fg); const ratio = (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
+  return ratio >= 2.2 ? fg : (a > .4 ? "#101010" : "#ffffff");
+}
+
+function render() {
+  const counts = { All: hits.length };
+  for (const k of Object.keys(STATUS)) counts[k] = hits.filter((h) => h.status === k).length;
+  $("filters").innerHTML = ["All", ...Object.keys(STATUS)]
+    .filter((k) => k === "All" || counts[k])
+    .map((k) => `<button class="chip" aria-pressed="${filter === k}" data-f="${esc(k)}">${esc(k === "All" ? "All hits" : STATUS[k].label)} <b>${counts[k]}</b></button>`).join("");
+  $("filters").querySelectorAll(".chip").forEach((b) => b.addEventListener("click", () => { filter = b.dataset.f; render(); }));
+
+  const shown = hits.filter((h) => filter === "All" || h.status === filter);
+  if (!hits.length) {
+    $("list").innerHTML = `<div class="empty"><strong>No hits yet</strong>Helmets show up here after each break is logged. If you've already hit one, check that this is the exact username you buy under.</div>`;
+    return;
+  }
+  // group by break date
+  const groups = new Map();
+  for (const h of shown) { const k = h.date || "Undated"; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(h); }
+  $("list").innerHTML = [...groups].map(([date, items]) => `
+    <section class="group"><h2>${esc(date === "Undated" ? "Undated" : fmtDate(date))}</h2>
+      <div class="grid">${items.map(card).join("")}</div></section>`).join("");
+  $("list").querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", () => {
+    navigator.clipboard?.writeText(b.dataset.copy).then(() => toast("Tracking number copied"));
+  }));
+}
+
+function card(h) {
+  const t = teamStyle(h.team), s = STATUS[h.status] || STATUS["In Fulfillment"];
+  const c2 = contrastText(t.c1, t.c2);
+  const tr = h.status === "Shipped" && h.tracking ? trackingUrl(h.tracking) : null;
+  return `<article class="hit" style="--c1:${t.c1};--c2:${c2}">
+    <div class="plate" aria-hidden="true"><span class="stripe"></span><span class="ab">${esc(t.abbr)}</span></div>
+    <div class="body">
+      <div class="team">${esc(t.name)}</div>
+      ${h.helmet ? `<div class="helm">${esc(h.helmet)}</div>` : ""}
+      ${h.breakNo ? `<div class="meta">Break ${esc(h.breakNo)} of the day</div>` : ""}
+      <span class="status ${s.cls}">${s.label}</span>
+      ${tr ? `<div class="track"><code>${esc(h.tracking)}</code><a href="${esc(tr.url)}" target="_blank" rel="noopener">Track with ${esc(tr.carrier)}</a><button data-copy="${esc(h.tracking)}">Copy</button></div>` : ""}
+    </div></article>`;
+}
+
+if (token()) load(); else show("authView");
+</script>
+</body>
+</html>

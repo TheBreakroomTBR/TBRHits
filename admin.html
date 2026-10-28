@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Helmet Hits Admin | Gridiron Grail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#140d27;--panel:#1d1537;--panel2:#251b45;--purple:#2d1b69;--gold:#c9b800;--text:#f3effc;--muted:#a99fc6;--line:#33285a;--ok:#59d38c;--hold:#b9a4ff;--err:#ff7b7b;
+  --cond:"Saira Condensed","Arial Narrow",Arial,sans-serif;--body:"Saira",system-ui,-apple-system,Segoe UI,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ink);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.45}
+body{padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px 60px}
+.bar{display:flex;align-items:center;gap:20px;padding:16px 0;flex-wrap:wrap}
+.mark{font-family:var(--cond);font-weight:800;font-size:22px;display:flex;gap:10px;align-items:center;margin-right:auto}
+.mark i{width:11px;height:20px;background:var(--gold);transform:skewX(-14deg)}
+.mark small{font-family:var(--body);font-weight:500;font-size:13px;color:var(--muted)}
+.meter{min-width:190px;font-size:13px;color:var(--muted)}
+.meter .track{height:6px;background:var(--panel2);border-radius:3px;overflow:hidden;margin-top:4px}
+.meter .fill{height:100%;background:var(--ok)}
+.meter.warn .fill{background:var(--gold)}.meter.bad .fill{background:var(--err)}
+.meter b{color:var(--text);font-weight:600}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.tabs button{background:none;border:0;padding:10px 16px;cursor:pointer;color:var(--muted);font-family:var(--cond);font-weight:600;font-size:19px;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--text);border-color:var(--gold)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:5px}
+.in{background:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+.in:focus{outline:none;border-color:var(--gold)}
+textarea.in{width:100%;min-height:150px;resize:vertical;font-size:14px}
+.btn{border:0;border-radius:8px;padding:9px 16px;cursor:pointer;font-weight:600;background:var(--panel2);border:1px solid var(--line)}
+.btn:hover{border-color:var(--gold)}
+.btn.gold{background:var(--gold);color:#1a1300;border-color:var(--gold);font-family:var(--cond);font-weight:800;font-size:18px;padding:8px 20px}
+.btn.danger{color:var(--err)}
+.btn:disabled{opacity:.5;cursor:wait}
+.help{color:var(--muted);font-size:13px;margin:8px 0 0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;color:var(--muted);font-weight:500;font-size:13px;padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr.dirty td{background:rgba(201,184,0,.06)}
+.tscroll{overflow-x:auto;margin-top:14px}
+.dot{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px;vertical-align:-1px;box-shadow:inset -4px 0 0 var(--c2)}
+.bad-team{color:var(--gold);font-size:12px}
+td .in{padding:5px 8px;width:100%;min-width:120px}
+select.in{min-width:140px}
+.bulk{position:sticky;top:0;z-index:5;background:var(--purple);border-radius:10px;padding:10px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.bulk .in{background:var(--ink)}
+.pill{font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px}
+.p-f{color:var(--gold);background:rgba(201,184,0,.12)}.p-s{color:var(--ok);background:rgba(89,211,140,.12)}.p-h{color:var(--hold);background:rgba(185,164,255,.14)}
+.gate{max-width:380px;margin:12vh auto 0}
+.gate h1{font-family:var(--cond);font-weight:800;font-size:44px;margin:0 0 14px;line-height:1}
+.hidden{display:none!important}
+.err-msg{color:var(--err);font-size:14px;min-height:20px}
+.badge{display:inline-block;background:var(--gold);color:#1a1300;font-family:var(--body);font-size:12px;font-weight:700;border-radius:999px;padding:0 7px;margin-left:6px;vertical-align:3px}
+h3{font-family:var(--cond);font-weight:600;font-size:22px;margin:0 0 4px}
+.pend td{background:rgba(201,184,0,.05)}
+.note{max-width:340px;color:var(--text)}
+.match{font-weight:600}.match.zero{color:var(--err)}.match.some{color:var(--ok)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0));transform:translateX(-50%);background:var(--text);color:var(--ink);padding:10px 16px;border-radius:8px;font-weight:600;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw}
+.toast.on{opacity:1}.toast.err{background:var(--err)}
+.stack>*+*{margin-top:16px}
+.muted{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section class="gate hidden" id="gate">
+  <h1>Admin sign-in</h1>
+  <form id="gateForm" class="panel stack">
+    <div><label for="key">Admin key</label><input class="in" id="key" type="password" style="width:100%" autocomplete="current-password"></div>
+    <div><label for="devName">Name this device</label><input class="in" id="devName" style="width:100%" placeholder="e.g. Chris's iPhone"></div>
+    <button class="btn gold" style="width:100%" id="gateBtn">Sign in on this device</button>
+    <div class="err-msg" id="gateMsg" role="alert"></div>
+    <p class="help">You stay signed in here until you sign out or revoke this device. 5 wrong keys locks sign-in for 15 minutes.</p>
+  </form>
+</section>
+
+<div id="app" class="hidden">
+  <header class="bar">
+    <div class="mark"><i></i>Helmet Hits <small>admin</small></div>
+    <div class="meter" id="mCalls"></div>
+    <div class="meter" id="mRecs"></div>
+    <button class="btn" id="syncBtn" title="Pull everything from Airtable. Costs about 1 call per 100 records.">Sync from Airtable</button>
+    <button class="btn" id="signOut">Sign out</button>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="log">Log a break</button>
+    <button role="tab" aria-selected="false" data-tab="hits">Hits</button>
+    <button role="tab" aria-selected="false" data-tab="accounts">Accounts<span class="badge hidden" id="pendBadge"></span></button>
+    <button role="tab" aria-selected="false" data-tab="security">Security</button>
+  </nav>
+
+  <!-- LOG A BREAK -->
+  <section id="tab-log" class="stack">
+    <div class="panel stack">
+      <div class="row">
+        <div><label for="bDate">Break date</label><input class="in" type="date" id="bDate"></div>
+        <div><label for="bNo">Break # of the day</label><input class="in" type="number" min="1" id="bNo" style="width:110px"></div>
+        <div><label for="bStatus">Starting status</label>
+          <select class="in" id="bStatus"><option>In Fulfillment</option><option>Buyback Hold</option><option>Shipped</option></select></div>
+      </div>
+      <div>
+        <label for="paste">Results, one hit per line: username, team, helmet</label>
+        <textarea class="in" id="paste" spellcheck="false" placeholder="bigjoe22, Cowboys, Speed Authentic&#10;@helmethunter, KC, Mini Speed&#10;sandlot_sam, 49ers, Flash Authentic"></textarea>
+        <p class="help">Commas or tabs both work, so you can paste straight from a sheet. Team can be the full name, nickname, or abbreviation.</p>
+      </div>
+    </div>
+    <div class="panel hidden" id="previewPanel">
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <strong id="previewTitle"></strong>
+        <button class="btn gold" id="saveBreak">Save hits</button>
+      </div>
+      <div class="tscroll"><table><thead><tr><th>Username</th><th>Team</th><th>Helmet</th><th></th></tr></thead><tbody id="previewBody"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- HITS -->
+  <section id="tab-hits" class="hidden">
+    <div class="row">
+      <div><label for="fq">Search</label><input class="in" id="fq" placeholder="username, team, helmet, tracking"></div>
+      <div><label for="fs">Status</label><select class="in" id="fs"><option value="">All</option><option>In Fulfillment</option><option>Shipped</option><option>Buyback Hold</option></select></div>
+      <div><label for="fd">Break date</label><input class="in" type="date" id="fd"></div>
+      <div><label class="muted"><input type="checkbox" id="fa"> Show archived</label></div>
+      <button class="btn gold hidden" id="saveEdits"></button>
+    </div>
+    <div class="bulk hidden" id="bulk">
+      <strong id="selCount"></strong>
+      <select class="in" id="bulkStatus"><option value="">Set status…</option><option>In Fulfillment</option><option>Shipped</option><option>Buyback Hold</option></select>
+      <input class="in" id="bulkTrack" placeholder="Tracking for all selected">
+      <button class="btn" id="bulkApply">Apply</button>
+      <button class="btn" id="bulkArchive" title="Moves Shipped hits out of Airtable. Customers still see them.">Archive shipped</button>
+      <button class="btn danger" id="bulkDelete">Delete</button>
+    </div>
+    <div class="tscroll"><table>
+      <thead><tr><th><input type="checkbox" id="selAll" aria-label="Select all"></th><th>Date</th><th>Brk</th><th>Username</th><th>Team</th><th>Helmet</th><th>Status</th><th>Tracking</th></tr></thead>
+      <tbody id="hitsBody"></tbody>
+    </table></div>
+    <p class="help" id="hitsFoot"></p>
+  </section>
+
+  <!-- ACCOUNTS -->
+  <section id="tab-accounts" class="hidden stack">
+    <div class="panel">
+      <h3>Waiting for approval</h3>
+      <p class="help" style="margin:0 0 6px">Customers see nothing until you approve them. Check their note against what they've actually hit.</p>
+      <div class="tscroll" style="margin-top:6px"><table><thead><tr><th>Username</th><th>Their note</th><th>Hits on file</th><th>Signed up</th><th></th></tr></thead><tbody id="pendBody"></tbody></table></div>
+    </div>
+    <div class="panel">
+      <h3>Approved</h3>
+      <div class="tscroll" style="margin-top:6px"><table><thead><tr><th>Username</th><th>Hits</th><th>Approved</th><th>Last login</th><th></th></tr></thead><tbody id="accBody"></tbody></table></div>
+      <p class="help">Accounts live in Netlify Blobs, not Airtable, so they don't use records or API calls.</p>
+    </div>
+  </section>
+
+  <!-- SECURITY -->
+  <section id="tab-security" class="hidden stack">
+    <div class="panel">
+      <div class="row" style="justify-content:space-between;align-items:center"><h3>Signed-in devices</h3><button class="btn danger" id="revokeOthers">Sign out all other devices</button></div>
+      <div class="tscroll" style="margin-top:6px"><table><thead><tr><th>Device</th><th>Signed in</th><th>Last active</th><th>Last IP</th><th></th></tr></thead><tbody id="devBody"></tbody></table></div>
+    </div>
+    <div class="panel">
+      <h3>Wrong-key attempts</h3>
+      <p class="help" id="lockInfo" style="margin:0 0 6px"></p>
+      <div class="tscroll" style="margin-top:6px"><table><thead><tr><th>When</th><th>IP</th></tr></thead><tbody id="failBody"></tbody></table></div>
+      <p class="help">If you see attempts you don't recognize, change ADMIN_KEY in Netlify and redeploy. Your signed-in devices stay signed in.</p>
+    </div>
+  </section>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="teams.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const { teamStyle, findTeam, esc, fmtDate } = GG;
+const API = "/.netlify/functions/admin";
+let S = { active: [], archive: [] }, sel = new Set(), edits = new Map(), preview = [];
+
+function toast(t, err) { const el = $("toast"); el.textContent = t; el.className = "toast on" + (err ? " err" : ""); clearTimeout(toast.t); toast.t = setTimeout(() => el.className = "toast", err ? 5000 : 1800); }
+
+async function call(action, data = {}) {
+  const res = await fetch(API, { method: "POST", headers: { "content-type": "application/json" }, credentials: "same-origin", body: JSON.stringify({ action, ...data }) });
+  const out = await res.json().catch(() => ({ error: "No response from server" }));
+  if (res.status === 401 && action !== "login") { showGate(); throw new Error("Signed out. Sign in again."); }
+  if (!res.ok) throw new Error(out.error || "Request failed");
+  return out;
+}
+function apply(out) { if (out.active) { S = out; renderMeters(); renderHits(); } }
+
+// ---- gate ----
+function showGate() { $("app").classList.add("hidden"); $("gate").classList.remove("hidden"); }
+$("signOut").onclick = async () => { try { await call("logout"); } catch {} showGate(); };
+$("gateForm").onsubmit = async (e) => {
+  e.preventDefault();
+  $("gateBtn").disabled = true; $("gateMsg").textContent = "";
+  try {
+    await call("login", { key: $("key").value, device: $("devName").value.trim() || navigator.platform || "Unnamed device" });
+    $("key").value = "";
+    await boot();
+  } catch (err) { $("gateMsg").textContent = err.message; }
+  finally { $("gateBtn").disabled = false; }
+};
+async function boot() {
+  try {
+    apply(await call("list"));
+    $("gate").classList.add("hidden"); $("app").classList.remove("hidden"); setDefaults();
+    loadAccounts(true);
+  } catch { showGate(); }
+}
+
+// ---- meters ----
+function meter(el, label, used, limit) {
+  const pct = Math.min(100, Math.round(used / limit * 100));
+  el.className = "meter" + (pct >= 90 ? " bad" : pct >= 70 ? " warn" : "");
+  el.innerHTML = `${label}: <b>${used}</b> / ${limit}<div class="track"><div class="fill" style="width:${pct}%"></div></div>`;
+}
+function renderMeters() {
+  meter($("mCalls"), "Airtable calls this month", S.usage.calls, S.usage.limit);
+  meter($("mRecs"), "Airtable records", S.records.used, S.records.limit);
+}
+$("syncBtn").onclick = async () => {
+  const est = Math.max(1, Math.ceil(S.records.used / 100));
+  if (!confirm(`Pull everything from Airtable? Uses about ${est} API call${est > 1 ? "s" : ""}. Only needed if you edited records directly in Airtable.`)) return;
+  try { apply(await call("sync")); toast("Synced from Airtable"); } catch (err) { toast(err.message, true); }
+};
+
+// ---- tabs ----
+document.querySelectorAll(".tabs button").forEach((b) => b.onclick = () => {
+  document.querySelectorAll(".tabs button").forEach((x) => x.setAttribute("aria-selected", x === b));
+  for (const t of ["log", "hits", "accounts", "security"]) $("tab-" + t).classList.toggle("hidden", t !== b.dataset.tab);
+  if (b.dataset.tab === "accounts") loadAccounts();
+  if (b.dataset.tab === "security") loadSecurity();
+});
+
+// ---- log a break ----
+const today = () => { const d = new Date(); return new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); };
+function nextBreakNo(date) { const nums = S.active.concat(S.archive).filter((h) => h.date === date).map((h) => Number(h.breakNo) || 0); return (nums.length ? Math.max(...nums) : 0) + 1; }
+function setDefaults() { if (!$("bDate").value) $("bDate").value = today(); $("bNo").value = nextBreakNo($("bDate").value); }
+$("bDate").onchange = () => { $("bNo").value = nextBreakNo($("bDate").value); };
+
+function parsePaste() {
+  preview = $("paste").value.split(/\r?\n/).map((l) => l.trim()).filter(Boolean).map((line) => {
+    const parts = (line.includes("\t") ? line.split("\t") : line.split(",")).map((x) => x.trim());
+    const [username = "", team = "", ...rest] = parts;
+    const t = findTeam(team);
+    return { username: username.replace(/^@+/, ""), team: t ? t.name : team, helmet: rest.join(", "), known: !!t };
+  }).filter((r) => r.username && !/^user(name)?$/i.test(r.username));
+  renderPreview();
+}
+$("paste").addEventListener("input", parsePaste);
+
+function renderPreview() {
+  $("previewPanel").classList.toggle("hidden", !preview.length);
+  const unknown = preview.filter((r) => !r.known).length;
+  $("previewTitle").textContent = `${preview.length} hit${preview.length === 1 ? "" : "s"} ready for break ${$("bNo").value || "?"}` + (unknown ? `, ${unknown} team${unknown > 1 ? "s" : ""} not recognized` : "");
+  $("saveBreak").textContent = `Save ${preview.length} hit${preview.length === 1 ? "" : "s"}`;
+  $("previewBody").innerHTML = preview.map((r, i) => {
+    const t = teamStyle(r.team);
+    return `<tr><td><input class="in" data-i="${i}" data-k="username" value="${esc(r.username)}"></td>
+      <td><span class="dot" style="background:${t.c1};--c2:${t.c2}"></span><input class="in" style="width:auto" data-i="${i}" data-k="team" value="${esc(r.team)}">${r.known ? "" : ' <span class="bad-team">not an NFL team, saved as typed</span>'}</td>
+      <td><input class="in" data-i="${i}" data-k="helmet" value="${esc(r.helmet)}"></td>
+      <td><button class="btn danger" data-del="${i}" aria-label="Remove row">✕</button></td></tr>`;
+  }).join("");
+  $("previewBody").querySelectorAll("input").forEach((inp) => inp.onchange = () => {
+    const r = preview[inp.dataset.i]; r[inp.dataset.k] = inp.value.trim();
+    if (inp.dataset.k === "team") { const t = findTeam(r.team); r.known = !!t; if (t) r.team = t.name; renderPreview(); }
+  });
+  $("previewBody").querySelectorAll("[data-del]").forEach((b) => b.onclick = () => { preview.splice(b.dataset.del, 1); renderPreview(); });
+}
+
+$("saveBreak").onclick = async () => {
+  const date = $("bDate").value, breakNo = Number($("bNo").value) || null, status = $("bStatus").value;
+  if (!date || !preview.length) return;
+  const rows = preview.map((r) => ({ username: r.username, team: r.team, helmet: r.helmet, date, breakNo, status }));
+  $("saveBreak").disabled = true;
+  try {
+    for (let i = 0; i < rows.length; i += 50) apply(await call("add", { rows: rows.slice(i, i + 50) }));
+    toast(`Saved ${rows.length} hits to break ${breakNo}`);
+    $("paste").value = ""; preview = []; renderPreview(); $("bNo").value = nextBreakNo(date);
+  } catch (err) { toast(err.message, true); }
+  finally { $("saveBreak").disabled = false; }
+};
+
+// ---- hits table ----
+["fq", "fs", "fd", "fa"].forEach((id) => $(id).addEventListener("input", renderHits));
+const pillCls = { "In Fulfillment": "p-f", "Shipped": "p-s", "Buyback Hold": "p-h" };
+
+function filtered() {
+  const q = $("fq").value.toLowerCase().trim(), st = $("fs").value, d = $("fd").value;
+  const src = $("fa").checked ? S.archive.map((h) => ({ ...h, archived: true })) : S.active;
+  return src.filter((h) => (!st || h.status === st) && (!d || h.date === d) &&
+    (!q || [h.username, h.team, h.helmet, h.tracking].join(" ").toLowerCase().includes(q)))
+    .sort((a, b) => (b.date || "").localeCompare(a.date || "") || (b.breakNo || 0) - (a.breakNo || 0) || a.username.localeCompare(b.username));
+}
+
+function renderHits() {
+  const list = filtered(), arch = $("fa").checked;
+  $("hitsBody").innerHTML = list.map((h) => {
+    const t = teamStyle(h.team), e = edits.get(h.id) || {};
+    const status = e.status ?? h.status, tracking = e.tracking ?? h.tracking;
+    return `<tr class="${edits.has(h.id) ? "dirty" : ""}">
+      <td>${arch ? "" : `<input type="checkbox" data-sel="${h.id}" ${sel.has(h.id) ? "checked" : ""} aria-label="Select">`}</td>
+      <td>${esc(fmtDate(h.date))}</td><td>${esc(h.breakNo ?? "")}</td><td>@${esc(h.username)}</td>
+      <td><span class="dot" style="background:${t.c1};--c2:${t.c2}"></span>${esc(t.name)}</td><td>${esc(h.helmet)}</td>
+      <td>${arch ? `<span class="pill ${pillCls[status]}">${esc(status)}</span>` :
+        `<select class="in" data-id="${h.id}" data-k="status">${["In Fulfillment", "Shipped", "Buyback Hold"].map((s) => `<option ${s === status ? "selected" : ""}>${s}</option>`).join("")}</select>`}</td>
+      <td>${arch ? esc(tracking) : `<input class="in" data-id="${h.id}" data-k="tracking" value="${esc(tracking)}" placeholder="—">`}</td></tr>`;
+  }).join("") || `<tr><td colspan="8" class="muted" style="padding:24px">${S.active.length || arch ? "Nothing matches these filters." : "No hits yet. Log a break to get started."}</td></tr>`;
+
+  $("hitsBody").querySelectorAll("[data-sel]").forEach((c) => c.onchange = () => { c.checked ? sel.add(c.dataset.sel) : sel.delete(c.dataset.sel); renderBulk(); });
+  $("hitsBody").querySelectorAll("[data-id]").forEach((inp) => inp.onchange = () => {
+    const h = S.active.find((x) => x.id === inp.dataset.id); const e = edits.get(h.id) || {};
+    e[inp.dataset.k] = inp.value.trim();
+    // entering a tracking number on an unshipped hit marks it shipped
+    if (inp.dataset.k === "tracking" && e.tracking && (e.status ?? h.status) === "In Fulfillment") e.status = "Shipped";
+    if ((e.status ?? h.status) === h.status && (e.tracking ?? h.tracking) === h.tracking) edits.delete(h.id); else edits.set(h.id, e);
+    renderHits();
+  });
+  $("selAll").checked = list.length > 0 && list.every((h) => sel.has(h.id));
+  $("selAll").disabled = arch;
+  $("hitsFoot").textContent = `${list.length} shown. ${S.archive.length} archived hit${S.archive.length === 1 ? "" : "s"} stay visible to customers but no longer count against Airtable.`;
+  $("saveEdits").classList.toggle("hidden", !edits.size);
+  $("saveEdits").textContent = `Save ${edits.size} change${edits.size === 1 ? "" : "s"}`;
+  renderBulk();
+}
+$("selAll").onchange = () => { filtered().forEach((h) => $("selAll").checked ? sel.add(h.id) : sel.delete(h.id)); renderHits(); };
+
+function renderBulk() {
+  for (const id of [...sel]) if (!S.active.some((h) => h.id === id)) sel.delete(id);
+  $("bulk").classList.toggle("hidden", !sel.size || $("fa").checked);
+  $("selCount").textContent = `${sel.size} selected`;
+}
+
+$("saveEdits").onclick = async () => {
+  const updates = [...edits].map(([id, e]) => ({ id, ...e }));
+  $("saveEdits").disabled = true;
+  try { apply(await call("update", { updates })); edits.clear(); renderHits(); toast(`Saved ${updates.length} change${updates.length === 1 ? "" : "s"}`); }
+  catch (err) { toast(err.message, true); } finally { $("saveEdits").disabled = false; }
+};
+
+$("bulkApply").onclick = async () => {
+  const status = $("bulkStatus").value, tracking = $("bulkTrack").value.trim();
+  if (!status && !tracking) return toast("Pick a status or enter a tracking number", true);
+  const updates = [...sel].map((id) => ({ id, ...(status ? { status } : {}), ...(tracking ? { tracking, status: status || "Shipped" } : {}) }));
+  try { apply(await call("update", { updates })); sel.clear(); $("bulkStatus").value = ""; $("bulkTrack").value = ""; renderHits(); toast(`Updated ${updates.length} hits`); }
+  catch (err) { toast(err.message, true); }
+};
+$("bulkArchive").onclick = async () => {
+  const ids = [...sel].filter((id) => S.active.find((h) => h.id === id)?.status === "Shipped");
+  if (!ids.length) return toast("Only Shipped hits can be archived", true);
+  if (!confirm(`Archive ${ids.length} shipped hit${ids.length > 1 ? "s" : ""}? They leave Airtable but customers still see them.`)) return;
+  try { apply(await call("archive", { ids })); sel.clear(); renderHits(); toast(`Archived ${ids.length}`); } catch (err) { toast(err.message, true); }
+};
+$("bulkDelete").onclick = async () => {
+  if (!confirm(`Delete ${sel.size} hit${sel.size > 1 ? "s" : ""} for good? Use this for mistakes only.`)) return;
+  try { apply(await call("delete", { ids: [...sel] })); sel.clear(); renderHits(); toast("Deleted"); } catch (err) { toast(err.message, true); }
+};
+
+// ---- accounts ----
+async function loadAccounts(badgeOnly) {
+  if (!badgeOnly) $("pendBody").innerHTML = $("accBody").innerHTML = `<tr><td colspan="5" class="muted">Loading…</td></tr>`;
+  try {
+    const { users } = await call("accounts");
+    const pending = users.filter((u) => !u.approved), approved = users.filter((u) => u.approved);
+    $("pendBadge").textContent = pending.length; $("pendBadge").classList.toggle("hidden", !pending.length);
+    if (badgeOnly) return;
+    const d = (x) => x ? new Date(x).toLocaleDateString() : "never";
+    $("pendBody").innerHTML = pending.map((u) => `<tr class="pend"><td>@${esc(u.username)}</td><td class="note">${esc(u.note) || '<span class="muted">none</span>'}</td>
+      <td><span class="match ${u.hits ? "some" : "zero"}">${u.hits}</span>${u.hits ? "" : ' <span class="muted">(no hits under this name)</span>'}</td><td>${d(u.created)}</td>
+      <td style="white-space:nowrap"><button class="btn gold" data-act="approveAccount" data-u="${esc(u.username)}">Approve</button> <button class="btn danger" data-act="deleteAccount" data-u="${esc(u.username)}">Reject</button></td></tr>`).join("")
+      || `<tr><td colspan="5" class="muted" style="padding:16px">Nobody waiting.</td></tr>`;
+    $("accBody").innerHTML = approved.map((u) => `<tr><td>@${esc(u.username)}</td><td>${u.hits}</td><td>${d(u.approvedAt)}</td><td>${d(u.lastLogin)}</td>
+      <td style="white-space:nowrap"><button class="btn" data-act="resetPassword" data-u="${esc(u.username)}">Reset password</button> <button class="btn" data-act="unapproveAccount" data-u="${esc(u.username)}">Revoke approval</button> <button class="btn danger" data-act="deleteAccount" data-u="${esc(u.username)}">Delete</button></td></tr>`).join("")
+      || `<tr><td colspan="5" class="muted" style="padding:16px">No approved accounts yet. Share the main page link on stream.</td></tr>`;
+    document.querySelectorAll("#tab-accounts [data-act]").forEach((b) => b.onclick = () => accountAction(b.dataset.act, b.dataset.u));
+  } catch (err) { toast(err.message, true); }
+}
+async function accountAction(act, username) {
+  const confirmText = {
+    deleteAccount: `Delete @${username}'s account? Their hits stay on file; they can sign up again.`,
+    unapproveAccount: `Hide @${username}'s hits from them until you approve again?`,
+  }[act];
+  if (confirmText && !confirm(confirmText)) return;
+  try {
+    const r = await call(act, { username });
+    if (act === "resetPassword") prompt(`Temporary password for @${r.username}. Send it to them; they'll set a new one at login.`, r.tempPassword);
+    else toast({ approveAccount: `Approved @${username}`, deleteAccount: `Deleted @${username}`, unapproveAccount: `Revoked @${username}` }[act]);
+    loadAccounts();
+  } catch (err) { toast(err.message, true); }
+}
+
+// ---- security ----
+async function loadSecurity() {
+  try {
+    const { devices, failedAttempts, lockedUntil } = await call("devices");
+    const dt = (x) => new Date(x).toLocaleString();
+    $("devBody").innerHTML = devices.map((d) => `<tr><td>${esc(d.name)}${d.current ? ' <span class="badge">this device</span>' : ""}</td>
+      <td>${dt(d.created)}</td><td>${dt(d.lastSeen)}</td><td>${esc(d.ip)}</td>
+      <td>${d.current ? "" : `<button class="btn danger" data-rev="${esc(d.id)}">Sign out</button>`}</td></tr>`).join("");
+    $("devBody").querySelectorAll("[data-rev]").forEach((b) => b.onclick = async () => {
+      try { await call("revokeDevice", { id: b.dataset.rev }); toast("Device signed out"); loadSecurity(); } catch (err) { toast(err.message, true); }
+    });
+    $("lockInfo").textContent = lockedUntil ? `Sign-in is locked until ${new Date(lockedUntil).toLocaleTimeString()}.` : "Most recent 20 shown.";
+    $("failBody").innerHTML = failedAttempts.map((f) => `<tr><td>${dt(f.at)}</td><td>${esc(f.ip)}</td></tr>`).join("")
+      || `<tr><td colspan="2" class="muted" style="padding:16px">No wrong-key attempts.</td></tr>`;
+  } catch (err) { toast(err.message, true); }
+}
+$("revokeOthers").onclick = async () => {
+  if (!confirm("Sign out every device except this one?")) return;
+  try { await call("revokeOthers"); toast("Other devices signed out"); loadSecurity(); } catch (err) { toast(err.message, true); }
+};
+
+boot();
+</script>
+</body>
+</html>
