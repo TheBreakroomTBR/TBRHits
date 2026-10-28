@@ -139,7 +139,7 @@ export default async (req) => {
         // keep the cache in step even if a batch fails partway
         if (created.length) { cache.active.push(...created); await saveCache(cache); }
       }
-      return json(await snapshot(cache));
+      return json({ ...(await snapshot(cache)), created: created.map((r) => r.id) });
     }
 
     // ---- update status / tracking / fields ----
